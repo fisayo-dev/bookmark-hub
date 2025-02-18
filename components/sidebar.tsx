@@ -1,41 +1,31 @@
 "use client";
 
-import BookmarkHub from "@/components/logo";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import BookmarkHub from "@/components/logo";
 
-// Define the correct type for an array of sidebar links
+// Dynamically import icons to prevent SSR issues
+const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Bookmark), { ssr: false });
+const Profile = dynamic(() => import("iconsax-react").then((mod) => mod.Profile), { ssr: false });
+const Create = dynamic(() => import("iconsax-react").then((mod) => mod.Add), { ssr: false });
+const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { ssr: false });
+
 interface SidebarProps {
   link: string;
   text: string;
-  icon: ReactNode; // Change to 'string' if the icon is an image path
+  icon: (color: string) => ReactNode;
 }
 
 const Sidebar = () => {
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
   const links: SidebarProps[] = [
-    {
-      link: "/bookmarks",
-      text: "Bookmarks",
-      icon: "📌", 
-    },
-    {
-      link: "/account",
-      text: "Account",
-      icon: "📌", 
-    },
-    {
-      link: "/favorites",
-      text: "Favorites",
-      icon: "⭐",
-    },
-    {
-      link: "/create-bookmark",
-      text: "Create",
-      icon: "⚙️",
-    },
+    { link: "/bookmarks", text: "Bookmarks", icon: (color) => <Bookmark size="24" color={color} variant="Bold" /> },
+    { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color} variant="Bold" /> },
+    { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color} variant="Bold" /> },
+    { link: "/create-bookmark", text: "Create", icon: (color) => <Create size="24" color={color} variant="Bold" /> },
   ];
 
   return (
@@ -44,16 +34,16 @@ const Sidebar = () => {
         <BookmarkHub />
         <div className="flex gap-2 flex-col justify-between h-full">
           {links.map((item, index) => {
-            const isActive = pathname === item.link; 
+            const isActive = pathname === item.link;
             return (
               <Link
                 href={item.link}
                 key={index}
-                className={`flex px-4 py-2 rounded-2xl items-center space-x-2 ${
+                className={`flex px-4 py-3 rounded-2xl items-center space-x-2 transition-all duration-300 ${
                   isActive ? "bg-white text-black" : "hover:bg-blue-600"
                 }`}
               >
-                <span>{item.icon}</span>
+                {item.icon(isActive ? "blue" : "white")}
                 <span>{item.text}</span>
               </Link>
             );
