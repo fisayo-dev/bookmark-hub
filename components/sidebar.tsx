@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import BookmarkHub from "@/components/logo";
 import { ReactNode } from "react";
 
-// Dynamically import icons to prevent SSR issues
 const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Bookmark), { ssr: false });
 const Profile = dynamic(() => import("iconsax-react").then((mod) => mod.Profile), { ssr: false });
 const Create = dynamic(() => import("iconsax-react").then((mod) => mod.Add), { ssr: false });
