@@ -25,7 +25,7 @@ export default function Home() {
               <p>Get Started</p>
             </button>
           </Link>
-          <Link href="/features">
+          <Link href="/bookmarks">
             <button className="shadow-md text-[0.8rem] md:text-[1rem] px-4 py-3 flex gap-2 items-center rounded-full border border-gray-500 hover-dark-bg-yellow">
               <SearchNormal size="20"  color="black"/>
               <p>Explore Features</p>
