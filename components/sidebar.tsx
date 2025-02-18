@@ -29,10 +29,10 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-[100vh] bg-blue-500 container w-[25vw]">
+    <div className="h-[100vh] bg-blue-500 w-[25vw]">
       <div className="grid gap-6 text-white py-4 px-6 mx-auto">
         <BookmarkHub />
-        <div className="flex gap-2 flex-col justify-between h-full">
+        <div className="flex gap-3 flex-col justify-between h-full">
           {links.map((item, index) => {
             const isActive = pathname === item.link;
             return (
