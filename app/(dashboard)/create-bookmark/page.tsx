@@ -1,6 +1,8 @@
+import React from 'react'
+
 const page = () => {
   return (
-    <div>Users Page</div>
+    <div>Create Bookmark</div>
   )
 }
 
