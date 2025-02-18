@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BookmarkHub from "@/components/logo";
+import { ReactNode } from "react";
 
 // Dynamically import icons to prevent SSR issues
 const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Bookmark), { ssr: false });
@@ -14,7 +15,7 @@ const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { 
 interface SidebarProps {
   link: string;
   text: string;
-  icon: (color: string) => JSX.Element;
+  icon: (color: string) => ReactNode;
 }
 
 const Sidebar = () => {
