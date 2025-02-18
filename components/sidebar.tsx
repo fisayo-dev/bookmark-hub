@@ -28,9 +28,11 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-[100vh] bg-blue-500 w-[25vw]">
-      <div className="grid gap-6 text-white py-4 px-6 mx-auto">
-        <BookmarkHub />
+    <div className="h-[100vh] w-[25vw]">
+          <div className="grid gap-6 py-4 px-6 mx-auto">
+              <div className="px-3 py-4">
+                  <BookmarkHub />
+              </div>
         <div className="flex gap-3 flex-col justify-between h-full">
           {links.map((item, index) => {
             const isActive = pathname === item.link;
@@ -38,11 +40,11 @@ const Sidebar = () => {
               <Link
                 href={item.link}
                 key={index}
-                className={`flex px-4 py-3 rounded-2xl items-center space-x-2 transition-all duration-300 ${
-                  isActive ? "bg-white text-black" : "hover:bg-blue-600"
+                className={`flex px-3 py-4 rounded-2xl items-center space-x-2 transition-all duration-300 ${
+                  isActive ? "bg-gray-200 font-bold" : "hover:bg-gray-100"
                 }`}
               >
-                {item.icon(isActive ? "#2563eb" : "#ffffff")} 
+                {item.icon(isActive ? "black" : "#aaaaaa")} 
                 <span>{item.text}</span>
               </Link>
             );
