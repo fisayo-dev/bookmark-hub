@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
 import BookmarkHub from "@/components/logo";
 
 // Dynamically import icons to prevent SSR issues
@@ -15,7 +14,7 @@ const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { 
 interface SidebarProps {
   link: string;
   text: string;
-  icon: (color: string) => ReactNode;
+  icon: (color: string) => JSX.Element;
 }
 
 const Sidebar = () => {
@@ -43,7 +42,7 @@ const Sidebar = () => {
                   isActive ? "bg-white text-black" : "hover:bg-blue-600"
                 }`}
               >
-                {item.icon(isActive ? "blue" : "white")}
+                {item.icon(isActive ? "#2563eb" : "#ffffff")} 
                 <span>{item.text}</span>
               </Link>
             );
