@@ -38,6 +38,7 @@ export default function Home() {
         width={500}
         height={500}
         alt="Not found page"
+        draggable={false}
         className="grid md:mr-auto md:place-items-end place-items-center mx-auto justify-end items-center w-9/12 md:w-6/12"
       />
     </div>
