@@ -7,8 +7,10 @@ interface LayoutProps {
 const layout = ({children}: LayoutProps) => {
     return (
       <div>
-       <Header />
-      { children }
+            <Header />
+            <div className="app-container py-6">
+                {children}
+            </div>
     </div>
   )
 }
