@@ -49,8 +49,8 @@ const Sidebar = () => {
               <Link
                 href={item.link}
                 key={index}
-                className={`flex px-2 py-2 rounded-2xl items-center space-x-2 ${
-                  isActive ? "bg-blue-700 text-white" : "hover:bg-blue-600"
+                className={`flex px-4 py-2 rounded-2xl items-center space-x-2 ${
+                  isActive ? "bg-white text-black" : "hover:bg-blue-600"
                 }`}
               >
                 <span>{item.icon}</span>
