@@ -34,9 +34,9 @@ export default function Home() {
         </div>
       </div>
       <Image
-        src="not-found.svg"
+        src="bookmark.svg"
         width={500}
-        height={600}
+        height={500}
         alt="Not found page"
         className="grid md:mr-auto md:place-items-end place-items-center mx-auto justify-end items-center w-9/12 md:w-6/12"
       />
