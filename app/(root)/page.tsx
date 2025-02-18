@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="grid md:flex md:my-0 my-10 gap-5 md:justify-between items-center">
       <div className="grid gap-4 md:text-left md:place-items-start place-items-center text-center">
-        <h2 className="lg:text-5xl text-4xl capitalize font-bold">
+        <h2 className="lg:text-6xl text-5xl capitalize font-bold">
           Bookmark Hub - Save Links Instantly
         </h2>
         <p className="text-[0.82rem] sm:text-[1rem]">
