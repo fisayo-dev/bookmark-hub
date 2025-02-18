@@ -7,11 +7,11 @@ interface LayoutProps {
 
 const layout = ({ children }: LayoutProps ) => {
   return (
-    <div>
+    <div className="flex items-start justify-start">
       <Sidebar />   
-      <>
+      <div className="w-[75vw] h-[100vh]">
       {children}
-      </>
+      </div>
     </div>
   )
 }
