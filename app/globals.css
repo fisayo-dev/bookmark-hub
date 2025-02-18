@@ -15,3 +15,7 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+.app-container {
+  @apply container mx-auto xl:px-[5rem] px-5;
+}
