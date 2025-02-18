@@ -33,7 +33,7 @@ const Sidebar = () => {
               <div className="px-3 py-4">
                   <BookmarkHub />
               </div>
-        <div className="flex gap-3 flex-col justify-between h-full">
+        <div className="flex gap-2 flex-col justify-between h-full">
           {links.map((item, index) => {
             const isActive = pathname === item.link;
             return (
