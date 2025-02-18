@@ -22,9 +22,9 @@ const Sidebar = () => {
 
   const links: SidebarProps[] = [
     { link: "/bookmarks", text: "Bookmarks", icon: (color) => <Bookmark size="24" color={color} variant="Bold" /> },
-    { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color} variant="Bold" /> },
-    { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color} variant="Bold" /> },
     { link: "/create-bookmark", text: "Create", icon: (color) => <Create size="24" color={color} variant="Bold" /> },
+    { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color} variant="Bold" /> },
+    { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color} variant="Bold" /> },
   ];
 
   return (
