@@ -9,7 +9,7 @@ interface Bookmark {
 
 // Fetch data on the server
 async function getBookmarks(): Promise<Bookmark[]> {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", { cache: "force-cache" }); 
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", { cache: "no-cache" }); 
   if (!res.ok) throw new Error("Failed to fetch bookmarks");
   return res.json();
 }
