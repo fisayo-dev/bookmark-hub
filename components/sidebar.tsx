@@ -28,7 +28,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-[100vh] w-[25vw]">
+    <div className="h-[100vh] w-[25vw] bg-white shadow">
           <div className="grid gap-6 py-4 px-6 mx-auto">
               <div className="px-3 py-4">
                   <BookmarkHub />
