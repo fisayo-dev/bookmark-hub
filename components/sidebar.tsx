@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 
 const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Home), { ssr: false });
 const Profile = dynamic(() => import("iconsax-react").then((mod) => mod.Profile), { ssr: false });
-const Payment = dynamic(() => import("iconsax-react").then((mod) => mod.Wallet), { ssr: false });
+const Payment = dynamic(() => import("iconsax-react").then((mod) => mod.Wallet1), { ssr: false });
 const Create = dynamic(() => import("iconsax-react").then((mod) => mod.Add), { ssr: false });
 const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { ssr: false });
 
