@@ -1,8 +1,29 @@
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Bookmark, PlusCircle } from 'lucide-react'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>Create Bookmark</div>
+    <div className="my-10">
+      <div className="grid gap-4">
+        <h2 className="text-4xl text-center color-pink font-bold">Add Bookmark</h2>
+        <div className="app-container">
+          <div className="flex items-center gap-4">
+            <div className="bg-gray-100 w-full p-3 rounded-2xl">
+              <div className="flex items-center">
+                <Bookmark className='h-6 w-6 text-gray-400'/>
+                <Input className='w-full' placeholder='Create a new bookmark'/>
+              </div>
+            </div>
+          <Button className='flex items-center'>
+            <PlusCircle className='h-8 w-8'/>
+            <p>Create</p>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
   )
 }
 
