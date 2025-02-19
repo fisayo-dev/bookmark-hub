@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 
 const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Home), { ssr: false });
 const Profile = dynamic(() => import("iconsax-react").then((mod) => mod.Profile), { ssr: false });
+const Payment = dynamic(() => import("iconsax-react").then((mod) => mod.Wallet), { ssr: false });
 const Create = dynamic(() => import("iconsax-react").then((mod) => mod.Add), { ssr: false });
 const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { ssr: false });
 
@@ -24,6 +25,7 @@ const Sidebar = () => {
     { link: "/bookmarks", text: "Bookmarks", icon: (color) => <Bookmark size="24" color={color}  /> },
     { link: "/create-bookmark", text: "Create", icon: (color) => <Create size="24" color={color}  /> },
     { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color}  /> },
+    { link: "/payments", text: "Payments", icon: (color) => <Payment size="24" color={color}  /> },
     { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color}  /> },
   ];
 
