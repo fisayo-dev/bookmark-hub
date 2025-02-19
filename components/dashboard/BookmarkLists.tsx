@@ -42,7 +42,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setView("grid")}
-            className={`p-2 rounded-full ${view === "grid" ? "bg-gray-300" : "hover:bg-gray-200"}`}
+            className={`p-2 rounded-full ${view === "grid" ? "bg-gray-200" : "hover:bg-gray-100"}`}
           >
             <Grid className="h-7 w-7" />
           </button>
