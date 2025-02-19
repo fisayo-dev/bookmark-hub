@@ -12,7 +12,7 @@ interface Bookmark {
   image: string,
 }
 const BookmarkLists = () => { 
-  const bookmarks: Bookmark = [
+  const bookmarks: Bookmark[] = [
     {
       link: 'https://google.com',
       title: 'Google',
