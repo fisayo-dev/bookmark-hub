@@ -8,7 +8,8 @@
   --background: #f2f3f3;
   --foreground: #171717;
   --pink: #e91e63;
-  --dark-pink: #c2185b;
+  --light-pink: #f3d4e0;
+  --lighter-pink: #f5eef1;
 }
 
 body {
@@ -26,11 +27,15 @@ body {
 .bg-pink {
   background-color: var(--pink);
 }
+
 .color-pink {
   color: var(--pink);
 }
 
-.light-pink {
-  background-color: var(--pink);
-  opacity: 0.1;
+.bg-light-pink {
+  background-color: var(--light-pink);
 }
+.bg-lighter-pink:hover {
+  background-color: var(--lighter-pink);
+}
+
