@@ -5,7 +5,7 @@ import Link from "next/link"
 const logo = () => {
   return (
     <Link href="/" className="flex py-2 items-center justify-between">
-    <h1 className="color-pink text-2xl font-extrabold">BookMark Hub</h1>
+    <h1 className="color-pink text-2xl font-extrabold">Bookmark Hub</h1>
 </Link>
   )
 }
