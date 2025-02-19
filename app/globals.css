@@ -36,6 +36,12 @@ body {
 .bg-lighter-pink:hover {
   background-color: var(--lighter-pink);
 }
+
+input, button, select {
+  border: none;
+  outline: none;
+} 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
