@@ -13,7 +13,7 @@ const page = () => {
             <div className="bg-gray-100 w-full p-3 rounded-2xl">
               <div className="flex items-center">
                 <Bookmark className='h-6 w-6 text-gray-400'/>
-                <Input className='w-full' placeholder='Create a new bookmark'/>
+                <Input className='w-full' placeholder='Type in the link of the web page you want to bookmark'/>
               </div>
             </div>
           <Button className='flex items-center'>
