@@ -8,7 +8,7 @@ const page = () => {
   return (
     <div className="grid gap-6">
       <div className="grid gap-1 text-center">
-        <h2 className="font-bold text-3xl">Signup</h2>
+        <h2 className="font-bold text-4xl">Signup</h2>
         <div className="flex items-center gap-1 justify-center">
           <p>Already have an account</p>
           <Link href="/login" className="color-pink hover:underline ">Login</Link>
