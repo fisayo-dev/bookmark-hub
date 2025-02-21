@@ -1,9 +1,13 @@
-"use client"
 import React, { ReactNode } from "react"
 import Sidebar from '@/components/sidebar'
 
 interface LayoutProps {
   children: ReactNode
+}
+
+export const metadata = { 
+  title: "Dashboard - Bookmark Hub ",
+  description: "A bookmark store for your favorite links",
 }
 
 const layout = ({ children }: LayoutProps ) => {
