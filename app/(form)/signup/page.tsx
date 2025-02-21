@@ -56,7 +56,7 @@ const page = () => {
       <div className="grid gap-2">
 
       <p className="text-center text-gray-700">OR</p>
-      <div className="p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
+      <div className="md:w-2/4 md:mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
         <div className="flex items-center justify-center gap-2">
           <Image
             src="/google.svg"
