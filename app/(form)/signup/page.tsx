@@ -53,20 +53,21 @@ const page = () => {
         <Button className="flex items-center gap-2">
           <p>Submit</p>
       </Button>
+      <div className="grid gap-2">
+
       <p className="text-center text-gray-700">OR</p>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/signup_vector.svg"
-              alt="Google signing"
-              height={28}
-              width={28} />
-            <p>Google</p>  
-          </div>
-        </div>
+      <div className="p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
+        <div className="flex items-center justify-center gap-2">
+          <Image
+            src="/google.svg"
+            alt="Google signing"
+            height={24}
+            width={24} />
+          <p className="text-lg">Continue with Google</p>  
+        </div>       
       </div>
     </div>
+  </div>
   )
 }
 
