@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Eye, Key, Mail, User } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 const page = () => {
@@ -51,7 +52,20 @@ const page = () => {
       </div>
         <Button className="flex items-center gap-2">
           <p>Submit</p>
-        </Button>
+      </Button>
+      <p className="text-center text-gray-700">OR</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/signup_vector.svg"
+              alt="Google signing"
+              height={28}
+              width={28} />
+            <p>Google</p>  
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -10,6 +10,14 @@ const layout = ({children}: {children: React.ReactNode}) => {
             <p>Your all in one bookmark store. <br /> Organize your bookmarks in one place.</p>
           </div> */}
           {/* <x` */}
+            <Image
+              src="/signup_vector.svg"
+              alt="Google signing"
+              height={100}
+              width={100}
+              className="w-5/6 ml-auto"
+              draggable={false}
+          />
         </div>
       </div>
       <div className="p-4 h-full">
