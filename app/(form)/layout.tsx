@@ -9,7 +9,7 @@ const layout = ({children}: {children: React.ReactNode}) => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-200 h-[100vh]">
+      <div className="bg-gray-200 h-[100vh] p-4">
         {children}
       </div>
     </div>
