@@ -19,14 +19,14 @@ export default function Home() {
         <div className="flex my-3 gap-2 place-items-center items-center justify-center">
           <Link href="/signup">
             <button 
-              className="shadow-md text-[0.8rem] md:text-[1rem] px-4 py-3 flex items-center gap-2 border border-gray-500 rounded-full bg-yellow hover-dark-bg-yellow"
+              className="bg-pink hover-dark-bg-pink text-white shadow-md text-[0.8rem] md:text-[1rem] px-4 py-3 flex items-center gap-2 border border-gray-500 rounded-full bg-yellow hover-dark-bg-yellow"
             >
-              <Ship size="20" color="black"/>
+              <Ship size="20" color="white"/>
               <p>Get Started</p>
             </button>
           </Link>
           <Link href="/bookmarks">
-            <button className="shadow-md text-[0.8rem] md:text-[1rem] px-4 py-3 flex gap-2 items-center rounded-full border border-gray-500 hover-dark-bg-yellow">
+            <button className="bg-gray-200 hover:bg-gray-300 shadow-md text-[0.8rem] md:text-[1rem] px-4 py-3 flex gap-2 items-center rounded-full border border-gray-500 hover-dark-bg-yellow">
               <SearchNormal size="20"  color="black"/>
               <p>Explore Features</p>
             </button>

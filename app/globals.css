@@ -26,6 +26,12 @@ body {
   background-color: var(--pink);
 }
 
+.dark-bg-pink, .hover-dark-bg-pink:hover { 
+  background-color: var(--pink); 
+  filter: brightness(90%); /* Reduces brightness to darken */
+}
+
+
 .color-pink {
   color: var(--pink);
 }
