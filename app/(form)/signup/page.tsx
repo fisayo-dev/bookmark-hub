@@ -18,10 +18,9 @@ const SignupPage = () => {
 
   const onSubmit = (data: any) => {
     console.log("Form Data:", data)
-    // Send form data to backend API
   }
 
-  const [showPasswords,setShowPasswords] = useState(true)
+  const [showPasswords,setShowPasswords] = useState(false)
   return (
     <div className="grid gap-6  mx-auto px-4 w-full md:w-4/6">
       <div className="grid gap-1 text-center">
