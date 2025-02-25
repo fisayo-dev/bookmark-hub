@@ -16,44 +16,32 @@ const page = () => {
       </div>
       <div className="grid gap-3">
         <div className="grid gap-3 grid-cols-2">
-          <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-            <div className="flex items-center">
-              <User className="text-gray-700"/>
-              <Input placeholder="First Name" type="text"/>
-            </div>
+            <div className="grid gap-1">
+              <label>First Name:</label>
+              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="First Name" type="text"/>
           </div>
-          <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-            <div className="flex items-center">
-              <User className="text-gray-700"/>
-              <Input placeholder="Last Name" type="text"/>
-            </div>
+            <div className="grid gap-1">
+              <label>First Name:</label>
+              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Last Name" type="text"/>
           </div>
         </div>
-        <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-            <div className="flex items-center">
-              <Mail className="text-gray-700"/>
-              <Input placeholder="Email Address" type="email"/>
+            <div className="grid gap-1">
+              <label>First Name:</label>
+              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Email Address" type="email"/>
+        </div>
+            <div className="grid gap-1">
+              <label>First Name:</label>
+              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Your password" type="password" />
             </div>
         </div>
-        <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-            <div className="flex items-center">
-              <Key className="text-gray-700"/>
-              <Input placeholder="Your password" type="password" />
-              <Eye />
-            </div>
-        </div>
-        <div className="p-3 border-1 rounded-2xl bg-gray-100 shadow-sm">
-            <div className="flex items-center">
-              <Key className="text-gray-700"/>
-              <Input placeholder="Repeat password" type="password"/>
-                <Eye />
-            </div>
-        </div>
-      </div>
+          <div className="grid gap-1">
+            <label>First Name:</label>
+            <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Repeat password" type="password"/>
+          </div>
         <Button className="flex items-center gap-2">
           <p>Submit</p>
       </Button>
-      <div className="grid gap-2">
+      <div className="grid gap-1">
 
       <p className="text-center text-gray-700">OR</p>
       <div className="md:w-2/4 md:mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
