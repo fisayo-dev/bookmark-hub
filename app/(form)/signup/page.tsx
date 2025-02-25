@@ -29,8 +29,8 @@ const SignupPage = () => {
         </div>
       </div>
 
-      <form className="grid gap-3" onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-3 grid-cols-2">
+      <form className="grid gap-3 items-start" onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid gap-3 items-start grid-cols-2">
           <div className="grid gap-1">
             <label className="font-bold">First Name:</label>
             <Input 
@@ -73,7 +73,7 @@ const SignupPage = () => {
           <Input 
             {...register("password", { 
               required: "Password is required", 
-              minLength: { value: 6, message: "Password must be at least 6 characters long" }
+              minLength: { value: 8, message: "Password must be at least 8 characters long" }
             })} 
             className="border rounded-2xl bg-gray-100 shadow-sm" 
             placeholder="Your password" 
