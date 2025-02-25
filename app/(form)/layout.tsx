@@ -3,8 +3,8 @@ import Logo from '@/components/logo'
 
 const layout = ({children}: {children: React.ReactNode}) => {
   return (
-    <div className="grid w-full h-[100vh] md:grid-cols-2 bg-white">
-      <div className="hidden md:block text-white">
+    <div className="grid w-full h-[100vh] lg:grid-cols-2 bg-white">
+      <div className="hidden lg:block w-full text-white">
         <div className="flex relative h-full flex-col items-center place-content-center justify-items-center">
           <div className="mx-auto absolute top-10">
             <Logo />
