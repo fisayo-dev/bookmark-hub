@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import Link from "next/link"
+import { Eye, EyeClosed } from "lucide-react"
+import { useState } from "react"
 
 const SignupPage = () => {
   const {
@@ -19,6 +21,7 @@ const SignupPage = () => {
     // Send form data to backend API
   }
 
+  const [showPasswords,setShowPasswords] = useState(true)
   return (
     <div className="grid gap-6  mx-auto px-4 w-full md:w-4/6">
       <div className="grid gap-1 text-center">
@@ -69,7 +72,12 @@ const SignupPage = () => {
         </div>
 
         <div className="grid gap-1">
-          <label className="font-bold">Password:</label>
+          <div className="flex items-center justify-between">
+            <label className="font-bold">Password:</label>
+            <div className="text-gray-900 cursor-pointer" onClick={() => setShowPasswords((prev) => !prev)}>
+              {showPasswords ? <Eye /> : <EyeClosed />  }
+            </div>
+          </div>
           <Input 
             {...register("password", { 
               required: "Password is required", 
@@ -77,7 +85,9 @@ const SignupPage = () => {
             })} 
             className="border rounded-2xl bg-gray-100 shadow-sm" 
             placeholder="********" 
-            type="password"
+            type={showPasswords ? 'text' : 
+              'password'
+            }
           />
           {errors.password && <p className="text-red-500 text-sm">{String(errors.password.message)}</p>}
         </div>
@@ -91,7 +101,9 @@ const SignupPage = () => {
             })} 
             className="border rounded-2xl bg-gray-100 shadow-sm" 
             placeholder="********" 
-            type="password"
+            type={showPasswords ? 'text' : 
+              'password'
+            }
           />
           {errors.confirmPassword && <p className="text-red-500 text-sm">{String(errors.confirmPassword.message)}</p>}
         </div>
