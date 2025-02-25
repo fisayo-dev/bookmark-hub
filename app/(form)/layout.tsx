@@ -21,7 +21,7 @@ const layout = ({children}: {children: React.ReactNode}) => {
         </div>
       </div>
       <div className="p-4 h-full">
-        <div className="flex h-full flex-col items-center place-content-center justify-items-center">
+        <div className="flex h-full flex-col place-content-center">
           {children}
          </div>
       </div> 
