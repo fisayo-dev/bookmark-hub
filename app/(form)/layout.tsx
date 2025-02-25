@@ -1,21 +1,20 @@
 import Image from "next/image"
+import Logo from '@/components/logo'
 
 const layout = ({children}: {children: React.ReactNode}) => {
   return (
     <div className="grid w-full h-[100vh] md:grid-cols-2 bg-white">
       <div className="hidden md:block text-white">
-        <div className="flex h-full flex-col items-center place-content-center justify-items-center">
-          {/* <div className="grid items-center text-center">
-            <h2 className="text-3xl font-bold">Bookmark Hub</h2>
-            <p>Your all in one bookmark store. <br /> Organize your bookmarks in one place.</p>
-          </div> */}
-          {/* <x` */}
+        <div className="flex relative h-full flex-col items-center place-content-center justify-items-center">
+          <div className="mx-auto absolute top-10">
+            <Logo />
+          </div>
             <Image
               src="/signup_vector.svg"
               alt="Google signing"
               height={100}
               width={100}
-              className="w-5/6 ml-auto"
+              className="w-5/6 mx-auto"
               draggable={false}
           />
         </div>
