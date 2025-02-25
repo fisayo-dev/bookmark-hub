@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Eye, Key, Mail, User } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -17,24 +16,24 @@ const page = () => {
       <form className="grid gap-3">
           <div className="grid gap-3 grid-cols-2">
               <div className="grid gap-1">
-                <label>First Name:</label>
+                <label className="font-bold">First Name:</label>
                 <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="First Name" type="text"/>
               </div>
               <div className="grid gap-1">
-                <label>Last Name:</label>
+                <label className="font-bold">Last Name:</label>
                 <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Last Name" type="text"/>
               </div>
             </div>
             <div className="grid gap-1">
-              <label>Email address:</label>
+              <label className="font-bold">Email address:</label>
               <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="name@mail.com" type="email"/>
             </div>
             <div className="grid gap-1">
-              <label>Password:</label>
+              <label className="font-bold">Password:</label>
               <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Your password" type="password" />
             </div>
           <div className="grid gap-1">
-            <label>Repeat password:</label>
+            <label className="font-bold">Repeat password:</label>
             <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Repeat password" type="password"/>
           </div>
           <Button className="flex items-center gap-2">
