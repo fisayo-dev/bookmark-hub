@@ -5,20 +5,21 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
+import { Eye, EyeClosed } from "lucide-react"
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
   const onSubmit = (data: any) => {
     console.log("Form Data:", data)
-    // Send form data to backend API
   }
 
+  const [showPassword,setShowPassword] = useState(false)
   return (
     <div className="grid gap-6 mx-auto px-4 w-full md:w-4/6">
       <div className="grid gap-1 text-center">
@@ -46,7 +47,12 @@ const LoginPage = () => {
         </div>
 
         <div className="grid gap-1">
-          <label className="font-bold">Password:</label>
+        <div className="flex items-center justify-between">
+            <label className="font-bold">Password:</label>
+            <div className="text-gray-900 cursor-pointer" onClick={() => setShowPassword((prev) => !prev)}>
+              {showPassword ? <Eye/> : <EyeClosed />  }
+            </div>
+          </div>
           <Input 
             {...register("password", { 
               required: "Password is required", 
@@ -54,7 +60,9 @@ const LoginPage = () => {
             })} 
             className="border rounded-2xl bg-gray-100 shadow-sm" 
             placeholder="********" 
-            type="password"
+            type={showPassword ? 'text' : 
+              'password'
+            }
           />
           {errors.password && <p className="text-red-500 text-sm">{String(errors.password.message)}</p>}
         </div>
