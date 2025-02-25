@@ -14,36 +14,36 @@ const page = () => {
           <Link href="/login" className="color-pink hover:underline ">Login</Link>
         </div>
       </div>
-      <div className="grid gap-3">
-        <div className="grid gap-3 grid-cols-2">
+      <form className="grid gap-3">
+          <div className="grid gap-3 grid-cols-2">
+              <div className="grid gap-1">
+                <label>First Name:</label>
+                <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="First Name" type="text"/>
+              </div>
+              <div className="grid gap-1">
+                <label>Last Name:</label>
+                <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Last Name" type="text"/>
+              </div>
+            </div>
             <div className="grid gap-1">
-              <label>First Name:</label>
-              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="First Name" type="text"/>
-          </div>
+              <label>Email address:</label>
+              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="name@mail.com" type="email"/>
+            </div>
             <div className="grid gap-1">
-              <label>First Name:</label>
-              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Last Name" type="text"/>
-          </div>
-        </div>
-            <div className="grid gap-1">
-              <label>First Name:</label>
-              <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Email Address" type="email"/>
-        </div>
-            <div className="grid gap-1">
-              <label>First Name:</label>
+              <label>Password:</label>
               <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Your password" type="password" />
             </div>
           <div className="grid gap-1">
-            <label>First Name:</label>
+            <label>Repeat password:</label>
             <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Repeat password" type="password"/>
           </div>
-        </div>
-        <Button className="flex items-center gap-2">
-          <p>Submit</p>
-      </Button>
+          <Button className="flex items-center gap-2">
+            <p>Submit</p>
+        </Button>
+        </form>
       <div className="grid gap-1">
         <p className="text-center text-gray-700">OR</p>
-        <div className="md:w-3/4 md:mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
+        <div className="w-5/6 md:w-3/4 mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
           <div className="flex items-center justify-center gap-2">
             <Image
               src="/google.svg"
