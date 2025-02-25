@@ -22,7 +22,7 @@ const SignupPage = () => {
 
   const [showPasswords,setShowPasswords] = useState(false)
   return (
-    <div className="grid gap-6 mx-auto px-4 w-5/6 sm:3/6">
+    <>
       <div className="grid gap-1 text-center">
         <h2 className="font-bold text-4xl">Signup</h2>
         <div className="flex items-center gap-1 justify-center">
@@ -120,8 +120,8 @@ const SignupPage = () => {
             <p className="text-lg">Continue with Google</p>
           </div>
         </div>
-      </div>
-    </div>
+        </div>
+      </>
   )
 }
 

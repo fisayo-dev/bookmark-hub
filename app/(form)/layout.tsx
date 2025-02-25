@@ -21,7 +21,9 @@ const layout = ({children}: {children: React.ReactNode}) => {
       </div>
       <div className="p-4 h-full">
         <div className="flex h-full flex-col place-content-center">
-          {children}
+          <div className="grid gap-6 mx-auto px-4 w-5/6 sm:3/6">
+            {children}              
+          </div>
          </div>
       </div> 
     </div> 
