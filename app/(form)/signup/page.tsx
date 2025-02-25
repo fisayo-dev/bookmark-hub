@@ -33,27 +33,26 @@ const page = () => {
               <label>First Name:</label>
               <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Your password" type="password" />
             </div>
-        </div>
           <div className="grid gap-1">
             <label>First Name:</label>
             <Input className="border-1 rounded-2xl bg-gray-100 shadow-sm" placeholder="Repeat password" type="password"/>
           </div>
+        </div>
         <Button className="flex items-center gap-2">
           <p>Submit</p>
       </Button>
       <div className="grid gap-1">
-
-      <p className="text-center text-gray-700">OR</p>
-      <div className="md:w-2/4 md:mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
-        <div className="flex items-center justify-center gap-2">
-          <Image
-            src="/google.svg"
-            alt="Google signing"
-            height={24}
-            width={24} />
-          <p className="text-lg">Continue with Google</p>  
-        </div>       
-      </div>
+        <p className="text-center text-gray-700">OR</p>
+        <div className="md:w-3/4 md:mx-auto p-3 border-1 cursor-pointer rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm">
+          <div className="flex items-center justify-center gap-2">
+            <Image
+              src="/google.svg"
+              alt="Google signing"
+              height={24}
+              width={24} />
+            <p className="text-lg">Continue with Google</p>  
+          </div>       
+        </div>
     </div>
   </div>
   )
