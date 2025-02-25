@@ -53,7 +53,7 @@ const LoginPage = () => {
               minLength: { value: 8, message: "Password must be at least 8 characters long" }
             })} 
             className="border rounded-2xl bg-gray-100 shadow-sm" 
-            placeholder="Your password" 
+            placeholder="********" 
             type="password"
           />
           {errors.password && <p className="text-red-500 text-sm">{String(errors.password.message)}</p>}
