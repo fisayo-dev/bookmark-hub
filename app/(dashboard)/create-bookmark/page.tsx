@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {Bookmark, BookmarkIcon, PlusCircle} from 'lucide-react'
+import {LinkIcon, BookmarkIcon, PlusCircle} from 'lucide-react'
 import React from 'react'
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ const page = () => {
           <div className="flex items-center py-4 gap-4">
             <div className="bg-gray-100 w-full px-4 py-3 rounded-2xl">
               <div className="flex items-center gap-2">
-                <Bookmark className='h-6 w-6 text-gray-400'/>
+                <LinkIcon className='h-6 w-6 text-gray-400'/>
                 <Input className='w-full px-0 py-1'
                        placeholder='Type in the link of the web page you want to bookmark'/>
               </div>
