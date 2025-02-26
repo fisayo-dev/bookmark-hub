@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div className="my-10">
       <div className="grid gap-4">
-        <h2 className="text-4xl color-pink font-bold app-container">Add Bookmark</h2>
+        <h2 className="text-4xl color-pink font-bold app-container">Create</h2>
         <div className="app-container">
           <div className="flex items-center py-4 gap-4">
             <div className="bg-gray-100 w-full px-4 py-3 rounded-2xl">

@@ -20,7 +20,7 @@ export default async function Pages() {
   return (
     <div className="my-10">
       <div className="grid gap-4">
-        <h2 className="app-container text-4xl color-pink font-bold">My Bookmarks</h2>
+        <h2 className="app-container text-4xl color-pink font-bold">Bookmarks</h2>
         <BookmarkLists bookmarks={bookmarks} />
       </div>
     </div>
