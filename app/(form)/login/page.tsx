@@ -39,7 +39,7 @@ const LoginPage = () => {
               required: "Email is required", 
               pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email address" } 
             })} 
-            className="border rounded-2xl bg-gray-100 shadow-sm" 
+            className="border focus:ring-2 rounded-2xl bg-gray-100 shadow-sm"
             placeholder="name@mail.com" 
             type="email"
           />
@@ -58,7 +58,7 @@ const LoginPage = () => {
               required: "Password is required", 
               minLength: { value: 8, message: "Password must be at least 8 characters long" }
             })} 
-            className="border rounded-2xl bg-gray-100 shadow-sm" 
+            className="border focus:ring-2 rounded-2xl bg-gray-100 shadow-sm"
             placeholder="********" 
             type={showPassword ? 'text' : 
               'password'

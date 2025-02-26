@@ -35,7 +35,7 @@ const SignupPage = () => {
         <label className="font-bold">Full Name:</label>
         <Input
           {...register("fullName", { required: "First name is required" })}
-          className="border rounded-2xl bg-gray-100 shadow-sm"
+          className="border focus:ring-2 rounded-2xl bg-gray-100 shadow-sm"
           placeholder="Full Name"
           type="text"
         />
@@ -48,7 +48,7 @@ const SignupPage = () => {
               required: "Email is required", 
               pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email address" } 
             })} 
-            className="border rounded-2xl bg-gray-100 shadow-sm" 
+            className="border focus:ring-2 rounded-2xl bg-gray-100 shadow-sm"
             placeholder="name@mail.com" 
             type="email"
           />
@@ -67,7 +67,7 @@ const SignupPage = () => {
               required: "Password is required", 
               minLength: { value: 8, message: "Password must be at least 8 characters long" }
             })} 
-            className="border rounded-2xl bg-gray-100 shadow-sm" 
+            className="border focus:ring-2 rounded-2xl bg-gray-100 shadow-sm"
             placeholder="********" 
             type={showPasswords ? 'text' : 
               'password'
