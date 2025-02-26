@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Logo from '@/components/logo'
+import {ReactNode} from 'react'
 
-const layout = ({children}: {children: React.ReactNode}) => {
+const layout = ({children}: {children: ReactNode}) => {
   return (
     <div className="grid w-full h-[100vh] lg:grid-cols-2 bg-white">
       <div className="hidden lg:block w-full text-white">
@@ -21,7 +22,7 @@ const layout = ({children}: {children: React.ReactNode}) => {
       </div>
       <div className="p-4 h-full">
         <div className="flex h-full flex-col place-content-center">
-          <div className="grid gap-6 mx-auto px-4 w-5/6 sm:3/6">
+          <div className="grid gap-6 mx-auto px-4 w-full sm:3/6">
             {children}              
           </div>
          </div>
