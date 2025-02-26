@@ -61,7 +61,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
           <div
             key={index}
             className={`border border-gray-200 rounded-2xl p-2 ${
-              view === "grid" ? "h-[35vh]" : "flex items-center gap-4"
+              view === "grid" ? "h-[28vh]" : "flex items-center gap-4"
             }`}
           >
             <Image
