@@ -10,10 +10,10 @@ const page = () => {
         <h2 className="text-4xl color-pink font-bold app-container">Add Bookmark</h2>
         <div className="app-container">
           <div className="flex items-center gap-4">
-            <div className="bg-gray-100 w-full p-3 rounded-2xl">
-              <div className="flex items-center">
+            <div className="bg-gray-100 w-full px-4 py-3 rounded-2xl">
+              <div className="flex items-center gap-2">
                 <Bookmark className='h-6 w-6 text-gray-400'/>
-                <Input className='w-full focus:' placeholder='Type in the link of the web page you want to bookmark'/>
+                <Input className='w-full px-0 py-1' placeholder='Type in the link of the web page you want to bookmark'/>
               </div>
             </div>
           <Button className='flex items-center'>

@@ -28,10 +28,10 @@ const BookmarkLists = ({ bookmarks }: Props) => {
   return (
     <div className="app-container">
       <div className="flex items-center gap-4 py-4">
-        <div className="bg-gray-100 w-full p-3 rounded-2xl flex items-center">
+        <div className="bg-gray-100 w-full px-4 gap-2 py-3 rounded-2xl flex items-center">
           <SearchIcon className="h-6 w-6 text-gray-400" />
           <Input
-            className="w-full"
+            className="w-full px-0 py-1"
             placeholder="Search for your bookmarks 😎"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
