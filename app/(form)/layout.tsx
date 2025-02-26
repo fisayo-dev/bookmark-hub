@@ -22,7 +22,7 @@ const layout = ({children}: {children: ReactNode}) => {
       </div>
       <div className="p-4 h-full">
         <div className="flex h-full flex-col place-content-center">
-          <div className="grid gap-6 mx-auto px-4 w-full sm:3/6">
+          <div className="grid gap-6 mx-auto px-4 w-full sm:w-5/6">
             {children}              
           </div>
          </div>
