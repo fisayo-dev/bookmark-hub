@@ -12,7 +12,6 @@ const SignupPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
@@ -32,30 +31,16 @@ const SignupPage = () => {
       </div>
 
       <form className="grid gap-3 items-start" onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-3 items-start grid-cols-2">
-          <div className="grid gap-1">
-            <label className="font-bold">First Name:</label>
-            <Input 
-              {...register("firstName", { required: "First name is required" })} 
-              className="border rounded-2xl bg-gray-100 shadow-sm" 
-              placeholder="First Name" 
-              type="text"
-            />
-            {errors.firstName && <p className="text-red-500 text-sm">{String(errors.firstName.message)}</p>}
-          </div>
-
-          <div className="grid gap-1">
-            <label className="font-bold">Last Name:</label>
-            <Input 
-              {...register("lastName", { required: "Last name is required" })} 
-              className="border rounded-2xl bg-gray-100 shadow-sm" 
-              placeholder="Last Name" 
-              type="text"
-            />
-            {errors.lastName && <p className="text-red-500 text-sm">{String(errors.lastName.message)}</p>}
-          </div>
-        </div>
-
+      <div className="grid gap-1">
+        <label className="font-bold">Full Name:</label>
+        <Input
+          {...register("fullName", { required: "First name is required" })}
+          className="border rounded-2xl bg-gray-100 shadow-sm"
+          placeholder="Full Name"
+          type="text"
+        />
+        {errors.fullName && <p className="text-red-500 text-sm">{String(errors.fullName.message)}</p>}
+      </div>
         <div className="grid gap-1">
           <label className="font-bold">Email address:</label>
           <Input 
@@ -89,22 +74,6 @@ const SignupPage = () => {
             }
           />
           {errors.password && <p className="text-red-500 text-sm">{String(errors.password.message)}</p>}
-        </div>
-
-        <div className="grid gap-1">
-          <label className="font-bold">Repeat password:</label>
-          <Input 
-            {...register("confirmPassword", { 
-              required: "Please confirm your password",
-              validate: (value) => value === watch("password") || "Passwords do not match"
-            })} 
-            className="border rounded-2xl bg-gray-100 shadow-sm" 
-            placeholder="********" 
-            type={showPasswords ? 'text' : 
-              'password'
-            }
-          />
-          {errors.confirmPassword && <p className="text-red-500 text-sm">{String(errors.confirmPassword.message)}</p>}
         </div>
 
         <Button type="submit" className="flex items-center gap-2">
