@@ -25,7 +25,7 @@ const Sidebar = () => {
     { link: "/bookmarks", text: "Bookmarks", icon: (color) => <Bookmark size="24" color={color}  /> },
     { link: "/create-bookmark", text: "Create", icon: (color) => <Create size="24" color={color}  /> },
     { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color}  /> },
-    { link: "/payments", text: "Payments", icon: (color) => <Payment size="24" color={color}  /> },
+    { link: "/subscriptions", text: "Subscriptions", icon: (color) => <Payment size="24" color={color}  /> },
     { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color}  /> },
   ];
 
