@@ -1,8 +1,12 @@
 import Image from "next/image"
 import Logo from '@/components/logo'
 import {ReactNode} from 'react'
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
 
-const layout = ({children}: {children: ReactNode}) => {
+const layout = async ({children}: {children: ReactNode}) => {
+    const session = await auth()
+    if (session) redirect('/bookmarks')
   return (
     <div className="grid w-full h-[100vh] lg:grid-cols-2 bg-white">
       <div className="hidden lg:block w-full text-white">
