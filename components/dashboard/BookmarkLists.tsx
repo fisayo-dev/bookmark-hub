@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 interface Bookmark {
     userId: number,
@@ -56,28 +57,28 @@ const BookmarkLists = ({ bookmarks }: Props) => {
       </div>
 
       {/* Bookmarks Display */}
-      <div className={view === "grid" ? "grid md:grid-cols-2 lg:grid-cols-3 2xl:lg:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
+      <div className={view === "grid" ? "grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
         {filteredBookmarks.map((bookmark, index) => (
           <div
             key={index}
             className={`hover:border-gray-400 cursor-pointer border border-gray-200 rounded-2xl p-2 ${
-              view === "grid" ? "h-[40vh]" : "flex items-center gap-4"
+              view === "grid" ? "h-auto" : "flex items-center gap-4"
             }`}
           >
             <Image
-              height={100}
-              width={100}
-              className={`${view == 'grid' ? 'w-full' : 
+              height={300}
+              width={300}
+              className={`${view == 'grid' ? 'mx-auto' : 
             'w-24'}`}
               src="/not-found.svg"
               alt={bookmark.title}
             />
             <div className="px-4">
-              <h2 className="text-2xl font-bold">{bookmark.title.length > 12 ? `${bookmark.title.substring(0,12)}...`: bookmark.title.length }</h2>
-              <p>{bookmark.title.length > 30 ? `${bookmark.title.substring(0,30)}...`: bookmark.title.length }</p>
-              {/* <Link href={bookmark.link} className="text-sm hover:underline">
+              <h2 className="text-nowrap capitalize text-2xl font-bold">{bookmark.title.length > 12 ? `${bookmark.title.substring(0,12)}...`: bookmark.title }</h2>
+              <p className="text-nowrap capitalize">{bookmark.title.length > 30 ? `${bookmark.title.substring(0,30)}...`: bookmark.title }</p>
+              <Link href='/ddd' className="text-sm hover:underline">
                 Visit
-              </Link> */}
+              </Link>
             </div>
           </div>
         ))}
