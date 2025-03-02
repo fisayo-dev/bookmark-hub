@@ -1,5 +1,12 @@
 import Header from "@/components/header"
 import Image from "next/image"
+
+
+export const metadata = {
+    title: "Not found Page",
+    description: "Hey there! Iy looks like this page you visited is not available",
+}
+
 const notFound = () => {
   return (
     <div>
