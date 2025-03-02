@@ -4,7 +4,7 @@ import Link from "next/link";
 const BookmarkCard = ({view, title, body }: {title: string; view: string; body: string }) => {
     return (
         <div
-            className={`hover:border-gray-400 cursor-pointer border border-gray-200 rounded-2xl p-2 ${
+            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-2 ${
                 view === "grid" ? "h-auto" : "flex items-center gap-4"
             }`}
         >
