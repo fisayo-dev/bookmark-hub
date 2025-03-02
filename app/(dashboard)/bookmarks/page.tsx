@@ -1,8 +1,6 @@
 import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import {BookmarkIcon} from 'lucide-react'
 import Link from "next/link";
-import {db} from "@/database/drizzle";
-import {users} from "@/database/schema";
 
 interface Bookmark {
   userId: number,
@@ -21,8 +19,6 @@ async function getBookmarks(): Promise<Bookmark[]> {
 export default async function Pages() {
   const bookmarks = await getBookmarks(); // Fetching happens server-side
 
-  const result = await db.select().from(users)
-  console.log(result)
   return (
     <div className="my-10">
       <div className="grid gap-4">

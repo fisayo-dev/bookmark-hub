@@ -7,16 +7,25 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
+import {signUp} from "@/lib/actions/auth";
+import {useRouter} from "next/navigation";
+
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm<SignupFormData>()
 
-  const onSubmit = (data: any) => {
-    console.log("Form Data:", data)
+  const router = useRouter()
+
+  const submitForm = async (data: SignupFormData) => {
+    const result = await signUp(data)
+    if (result.success) {
+      console.log("Success")
+      router.push("/bookmarks")
+    }
   }
 
   const [showPassword,setShowPassword] = useState(false)
@@ -30,7 +39,7 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <form className="grid gap-3  items-start" onSubmit={handleSubmit(onSubmit)}>
+      <form className="grid gap-3  items-start" onSubmit={handleSubmit(submitForm)}>
 
         <div className="grid gap-1">
           <label className="font-bold">Email address:</label>

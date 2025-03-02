@@ -4,3 +4,10 @@ interface AuthCredentials {
     profile_image_url?: string;
     fullName: string;
 }
+
+
+type SignupFormData = {
+    fullName: string;
+    email: string;
+    password: string;
+}

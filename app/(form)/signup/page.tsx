@@ -10,11 +10,6 @@ import { useState } from "react"
 import { signUp } from "@/lib/actions/auth"
 import { useRouter } from "next/navigation"
 
-type SignupFormData = {
-  fullName: string;
-  email: string;
-  password: string;
-}
 
 const SignupPage = () => {
   const {
