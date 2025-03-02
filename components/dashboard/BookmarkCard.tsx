@@ -9,8 +9,8 @@ const BookmarkCard = ({view, title, body }: {title: string; view: string; body: 
             }`}
         >
             <Image
-                height={300}
-                width={300}
+                height={100}
+                width={100}
                 className={`${view == 'grid' ? 'mx-auto' :
                     'w-24'}`}
                 src="/not-found.svg"
