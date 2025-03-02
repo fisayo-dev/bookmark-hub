@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import {ReactNode, useState} from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
-import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
 
 interface Bookmark {
@@ -18,9 +16,28 @@ interface Props {
   bookmarks: Bookmark[];
 }
 
+interface BookmarkStyleBtns {
+    function: Function;
+    icon: ReactNode;
+    name?: string;
+}
+
 const BookmarkLists = ({ bookmarks }: Props) => {
   const [view, setView] = useState<"grid" | "list">("grid"); // State to toggle layout
   const [search, setSearch] = useState(""); // State for search input
+
+    const bookmarkStyleBtns: BookmarkStyleBtns[] = [
+        {
+            function: () => setView("grid"),
+            icon:  <Grid className="h-7 w-7" />,
+            name: 'grid'
+        },
+        {
+            function: () => setView("list"),
+            icon:  <List className="h-7 w-7" />,
+            name: 'list'
+        }
+    ]
 
   // Filter bookmarks based on search input
   const filteredBookmarks = bookmarks.filter((bookmark) =>
@@ -42,18 +59,14 @@ const BookmarkLists = ({ bookmarks }: Props) => {
 
         {/* Layout Toggle Buttons */}
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setView("grid")}
-            className={`p-2 rounded-full ${view === "grid" ? "bg-gray-200" : "hover:bg-gray-100"}`}
-          >
-            <Grid className="h-7 w-7" />
-          </button>
-          <button
-            onClick={() => setView("list")}
-            className={`p-2 rounded-full ${view === "list" ? "bg-gray-300" : "hover:bg-gray-200"}`}
-          >
-            <List className="h-7 w-7" />
-          </button>
+            {bookmarkStyleBtns.map((btn, index) => (
+              <div key={index}
+                onClick={() => btn.function()}
+                className={`cursor-pointer hover:bg-gray-200 p-2 rounded-full ${btn.name == 'grid' && view === "grid" && "bg-gray-200"} ${btn.name == 'list' && view === "list" && "bg-gray-200"}`}
+              >
+                  {btn.icon}
+              </div>
+            ))}
         </div>
       </div>
 
