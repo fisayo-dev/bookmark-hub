@@ -5,12 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BookmarkHub from "@/components/logo";
 import { ReactNode } from "react";
-
-const Bookmark = dynamic(() => import("iconsax-react").then((mod) => mod.Home), { ssr: false });
-const Profile = dynamic(() => import("iconsax-react").then((mod) => mod.Profile), { ssr: false });
-const Payment = dynamic(() => import("iconsax-react").then((mod) => mod.Wallet1), { ssr: false });
-const Create = dynamic(() => import("iconsax-react").then((mod) => mod.Add), { ssr: false });
-const Star1 = dynamic(() => import("iconsax-react").then((mod) => mod.Star1), { ssr: false });
+import {BookmarkIcon, PlusIcon, StarIcon, WalletIcon} from "lucide-react";
+import {ProfileCircle} from "iconsax-react";
 
 interface SidebarProps {
   link: string;
@@ -22,11 +18,11 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const links: SidebarProps[] = [
-    { link: "/bookmarks", text: "Bookmarks", icon: (color) => <Bookmark size="24" color={color}  /> },
-    { link: "/create-bookmark", text: "Create", icon: (color) => <Create size="24" color={color}  /> },
-    { link: "/favorites", text: "Favorites", icon: (color) => <Star1 size="24" color={color}  /> },
-    { link: "/subscriptions", text: "Subscriptions", icon: (color) => <Payment size="24" color={color}  /> },
-    { link: "/account", text: "Account", icon: (color) => <Profile size="24" color={color}  /> },
+    { link: "/bookmarks", text: "Bookmarks", icon: (color) => <BookmarkIcon size="24" color={color}  /> },
+    { link: "/create-bookmark", text: "Create", icon: (color) => <PlusIcon size="24" color={color}  /> },
+    { link: "/favorites", text: "Favorites", icon: (color) => <StarIcon size="24" color={color}  /> },
+    { link: "/subscriptions", text: "Subscriptions", icon: (color) => <WalletIcon size="24" color={color}  /> },
+    { link: "/account", text: "Account", icon: (color) => <ProfileCircle size="24" color={color}  /> },
   ];
 
   return (
