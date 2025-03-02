@@ -60,20 +60,21 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         {filteredBookmarks.map((bookmark, index) => (
           <div
             key={index}
-            className={`border border-gray-200 rounded-2xl p-2 ${
-              view === "grid" ? "h-[28vh]" : "flex items-center gap-4"
+            className={`hover:border-gray-400 cursor-pointer border border-gray-200 rounded-2xl p-2 ${
+              view === "grid" ? "h-[40vh]" : "flex items-center gap-4"
             }`}
           >
             <Image
               height={100}
               width={100}
-              className="w-24"
+              className={`${view == 'grid' ? 'w-full' : 
+            'w-24'}`}
               src="/not-found.svg"
               alt={bookmark.title}
             />
             <div className="px-4">
-              <h2 className="text-2xl font-bold">{bookmark.title.length > 12 ? bookmark.title.substring(0,12): bookmark.title.length }</h2>
-              <p>{bookmark.title.length > 30 ? bookmark.title.substring(0,30): bookmark.title.length }</p>
+              <h2 className="text-2xl font-bold">{bookmark.title.length > 12 ? `${bookmark.title.substring(0,12)}...`: bookmark.title.length }</h2>
+              <p>{bookmark.title.length > 30 ? `${bookmark.title.substring(0,30)}...`: bookmark.title.length }</p>
               {/* <Link href={bookmark.link} className="text-sm hover:underline">
                 Visit
               </Link> */}
