@@ -5,6 +5,7 @@ import { Grid, List, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import BookmarkCard from "@/components/dashboard/BookmarkCard";
 
 interface Bookmark {
     userId: number,
@@ -59,28 +60,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
       {/* Bookmarks Display */}
       <div className={view === "grid" ? "grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
         {filteredBookmarks.map((bookmark, index) => (
-          <div
-            key={index}
-            className={`hover:border-gray-400 cursor-pointer border border-gray-200 rounded-2xl p-2 ${
-              view === "grid" ? "h-auto" : "flex items-center gap-4"
-            }`}
-          >
-            <Image
-              height={300}
-              width={300}
-              className={`${view == 'grid' ? 'mx-auto' : 
-            'w-24'}`}
-              src="/not-found.svg"
-              alt={bookmark.title}
-            />
-            <div className="px-4">
-              <h2 className="text-nowrap capitalize text-2xl font-bold">{bookmark.title.length > 12 ? `${bookmark.title.substring(0,12)}...`: bookmark.title }</h2>
-              <p className="text-nowrap capitalize">{bookmark.title.length > 30 ? `${bookmark.title.substring(0,30)}...`: bookmark.title }</p>
-              <Link href='/ddd' className="text-sm hover:underline">
-                Visit
-              </Link>
-            </div>
-          </div>
+         <BookmarkCard key={index} title={bookmark.title} view={view}/>
         ))}
       </div>
     </div>
