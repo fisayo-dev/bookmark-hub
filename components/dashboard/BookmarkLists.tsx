@@ -41,7 +41,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
 
   // Filter bookmarks based on search input
   const filteredBookmarks = bookmarks.filter((bookmark) =>
-    bookmark.title.toLowerCase().includes(search.toLowerCase())
+    bookmark.title.toLowerCase().includes(search.toLowerCase()) || bookmark.body.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
