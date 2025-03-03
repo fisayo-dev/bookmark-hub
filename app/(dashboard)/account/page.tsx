@@ -9,7 +9,7 @@ const page = () => {
           <div className='app-container flex items-center justify-between'>
             <h2 className=" text-4xl color-pink font-bold">Profile</h2>
           </div>
-          <div className="profile-section-grid">
+          <div className="app-container profile-section-grid py-4">
               <ProfileCard>
                   <div className="flex flex-col p-2 text-center items-center gap-2">
                       <Image
