@@ -113,7 +113,7 @@ input, button, select {
 }
 
 .profile-section-grid {
-  @apply grid gap-6 items-start;
+  @apply grid gap-8 items-start;
   grid-template-columns: 2fr 6fr;
 }
 
