@@ -11,7 +11,7 @@ const page = () => {
             value: 26,
         },
         {
-            text: "Streak",
+            text: "Streaks",
             icon: <FlameIcon className="h-4 2-4"/>,
             value: 10,
         },
