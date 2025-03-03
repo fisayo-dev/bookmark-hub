@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
 
-const ProfileCard = ({children}: {children: ReactNode}) => {
+const ProfileCard = ({children, className = ''}: {children: ReactNode; className?: string;}) => {
     return (
-        <div className='profile-card'>
+        <div className={`profile-card ${className}`}>
             {children}
         </div>
     )
