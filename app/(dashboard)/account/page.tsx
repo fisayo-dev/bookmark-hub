@@ -1,8 +1,26 @@
 import React from 'react'
 import ProfileCard from "@/components/dashboard/ProfileCard";
 import Image from "next/image";
+import {BookmarkIcon, FlameIcon, StarIcon} from "lucide-react";
 
 const page = () => {
+    const progressItems: ProgressItems[] = [
+        {
+            title: "Bookmarks",
+            icon: <BookmarkIcon />,
+            value: 26,
+        },
+        {
+            title: "Streak",
+            icon: <FlameIcon />,
+            value: 10,
+        },
+        {
+            title: "Favorites",
+            icon: <StarIcon />,
+            value: 5,
+        }
+    ]
   return (
       <div className="my-10">
         <div className="grid gap-4">
@@ -28,8 +46,10 @@ const page = () => {
               <ProfileCard>
                   <div className="grid gap-4">
                       <div className="grid gap-2">
-                          <h2 className="text-xl font-bold">Activity</h2>
-                          <div></div>
+                          <h2 className="text-xl font-bold">Progress</h2>
+                          <div className="grid gap-4 py-2 grid-cols-3">
+
+                          </div>
                       </div>
                   </div>
               </ProfileCard>

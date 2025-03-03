@@ -11,3 +11,9 @@ type SignupFormData = {
     email: string;
     password: string;
 }
+
+type ProgressItems = {
+    value: number;
+    icon: React.ReactNode;
+    title: string;
+}
