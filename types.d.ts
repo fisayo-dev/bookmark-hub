@@ -15,5 +15,5 @@ type SignupFormData = {
 type ProgressItems = {
     value: number;
     icon: React.ReactNode;
-    title: string;
+    text: string;
 }

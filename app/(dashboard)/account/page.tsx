@@ -6,17 +6,17 @@ import {BookmarkIcon, FlameIcon, StarIcon} from "lucide-react";
 const page = () => {
     const progressItems: ProgressItems[] = [
         {
-            title: "Bookmarks",
+            text: "Bookmarks",
             icon: <BookmarkIcon />,
             value: 26,
         },
         {
-            title: "Streak",
+            text: "Streak",
             icon: <FlameIcon />,
             value: 10,
         },
         {
-            title: "Favorites",
+            text: "Favorites",
             icon: <StarIcon />,
             value: 5,
         }
@@ -48,7 +48,15 @@ const page = () => {
                       <div className="grid gap-2">
                           <h2 className="text-xl font-bold">Progress</h2>
                           <div className="grid gap-4 py-2 grid-cols-3">
-
+                              {progressItems.map((item,index) => (
+                                  <div className="border border-gray-200 p-4 rounded-2xl gap-4 .flex flex-col items-center text-center">
+                                      <div className="flex items-center gap-2 justify-center">
+                                          {item.icon}
+                                          <p>{item.text}</p>
+                                      </div>
+                                      <h2 className="text-4xl">{item.value}</h2>
+                                  </div>
+                              ))}
                           </div>
                       </div>
                   </div>
