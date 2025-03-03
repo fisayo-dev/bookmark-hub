@@ -112,3 +112,12 @@ input, button, select {
   }
 }
 
+.profile-section-grid {
+  @apply grid gap-6;
+  grid-template-columns: 2fr 6fr;
+}
+
+.profile-card {
+  @apply p-2 bg-gray-100 rounded-2xl grid gap-4
+}
+
