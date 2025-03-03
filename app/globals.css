@@ -118,6 +118,6 @@ input, button, select {
 }
 
 .profile-card {
-  @apply p-2 bg-gray-100 rounded-2xl grid gap-4
+  @apply p-2 border border-gray-200 rounded-2xl grid gap-4
 }
 
