@@ -15,7 +15,7 @@ const layout = ({ children }: LayoutProps ) => {
   return (
     <div className="lg:flex items-start justify-start">
       <Sidebar />   
-      <div className="lg:w-[79vw] h-[100vh] overflow-scroll">
+      <div className="lg:w-[79vw] h-[100vh] overflow-x-hidden overflow-y-scroll">
           <ResponsiveHeader />
           <div className="py-10">
             {children}
