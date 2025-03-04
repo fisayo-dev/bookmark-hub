@@ -23,7 +23,7 @@ export default async function Pages() {
     <div className="my-10">
       <div className="grid gap-4">
         <div className='app-container flex items-center justify-between'>
-          <h2 className=" text-4xl color-pink font-bold">Bookmarks</h2>
+          <h2 className="text-4xl color-pink font-bold">Bookmarks</h2>
           <div className='p-3 rounded-2xl bg-gray-100 hover:bg-gray-200 cursor-pointer'>
             <Link href="/create-bookmark" className='flex items-center justify-center gap-1'>
               <BookmarkIcon className='h-5 w-5'/>
