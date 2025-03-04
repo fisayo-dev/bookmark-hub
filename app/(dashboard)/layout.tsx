@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react"
 import Sidebar from '@/components/sidebar'
+import ResponsiveHeader from "@/components/ResponsiveHeader";
 
 interface LayoutProps {
   children: ReactNode
@@ -12,10 +13,11 @@ export const metadata = {
 
 const layout = ({ children }: LayoutProps ) => {
   return (
-    <div className="flex items-start justify-start">
+    <div className="md:flex items-start justify-start">
       <Sidebar />   
-      <div className="w-[79vw] h-[100vh] p-6 overflow-scroll">
-      {children}
+      <div className=" md:w-[79vw] h-[100vh] p-6 overflow-scroll">
+          <ResponsiveHeader />
+          {children}
       </div>
     </div>
   )
