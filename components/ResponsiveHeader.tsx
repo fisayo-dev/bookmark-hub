@@ -11,7 +11,7 @@ const ResponsiveHeader = () => {
             {showMenu && (
                 <div>
                     <div className="block lg:hidden absolute top-0 left-0 z-50">
-                        <div className="h-[100vh] w-[50vw] md:w-[35vw] lg:w-[25vw] bg-white shadow">
+                        <div className="h-[100vh] w-[70vw] md:w-[35vw] lg:w-[25vw] bg-white shadow">
                             <SidebarContent />
                         </div>
                     </div>
