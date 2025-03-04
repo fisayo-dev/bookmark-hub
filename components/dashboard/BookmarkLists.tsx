@@ -71,7 +71,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
       </div>
 
       {/* Bookmarks Display */}
-      <div className={view === "grid" ? "grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
+      <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
         {filteredBookmarks.map((bookmark, index) => (
          <BookmarkCard key={index} title={bookmark.title} body={bookmark.body} view={view}/>
         ))}
