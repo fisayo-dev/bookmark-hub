@@ -18,7 +18,7 @@ const BookmarkCard = ({view, title, body }: {title: string; view: string; body: 
             />
             <div className="px-4">
                 <h2 className="text-nowrap capitalize text-2xl font-bold">{title.length > 12 ? `${title.substring(0, 12)}...` : title}</h2>
-                <p className="text-nowrap capitalize">{body.length > 30 ? `${body.substring(0, 30)}...` : body}</p>
+                <p className="text-nowrap text-sm capitalize">{body.length > 30 ? `${body.substring(0, 30)}...` : body}</p>
                 <Link href='/ddd' className="text-sm hover:underline">
                     Visit
                 </Link>
