@@ -13,9 +13,9 @@ export const metadata = {
 
 const layout = ({ children }: LayoutProps ) => {
   return (
-    <div className="md:flex items-start justify-start">
+    <div className="lg:flex items-start justify-start">
       <Sidebar />   
-      <div className=" md:w-[79vw] h-[100vh] overflow-scroll">
+      <div className="lg:w-[79vw] h-[100vh] overflow-scroll">
           <ResponsiveHeader />
           <div className="py-10">
             {children}

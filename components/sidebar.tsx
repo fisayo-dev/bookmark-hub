@@ -26,7 +26,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="hidden md:block h-[100vh] w-[21vw] bg-white shadow">
+    <div className="hidden lg:block h-[100vh] w-[21vw] bg-white shadow">
           <div className="grid gap-6 py-4 px-6 mx-auto">
               <div className="py-4">
                   <BookmarkHub />
