@@ -4,8 +4,8 @@ import {MenuIcon} from "lucide-react";
 
 const ResponsiveHeader = () => {
     return (
-        <div className="md:hidden app-container sticky w-full">
-            <div className="py-2 flex items-center justify-between">
+        <div className="bg-transparent backdrop-blur-2xl md:hidden fixed w-full">
+            <div className="py-2 flex items-center justify-between app-container">
                 <Logo/>
                 <div className='p-2 cursor-pointer hover:bg-gray-100 rounded-full'>
                     <MenuIcon />
