@@ -2,8 +2,9 @@ import React from 'react'
 import ProfileCard from "@/components/dashboard/ProfileCard";
 import Image from "next/image";
 import {BookmarkIcon, FlameIcon, StarIcon} from "lucide-react";
+import {auth} from "@/auth";
 
-const page = () => {
+const page = async () => {
     const progressItems: ProgressItems[] = [
         {
             text: "Bookmarks",
@@ -21,6 +22,8 @@ const page = () => {
             value: 5,
         }
     ]
+    const session = await auth()
+    console.log(session)
   return (
       <div className="my-10">
         <div className="grid gap-4">
@@ -37,8 +40,8 @@ const page = () => {
                         alt="profile"
                       />
                       <div>
-                          <h2 className="text-2xl font-bold">Fisayo Obadina</h2>
-                          <p>olufisayobadina@gmail.com</p>
+                          <h2 className="text-2xl font-bold">{session?.user?.name}</h2>
+                          <p>{session?.user?.email}</p>
                           <p className="text-sm text-gray-800">Joined Dec 9, 2025</p>
                       </div>
                   </div>
