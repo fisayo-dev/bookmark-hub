@@ -23,7 +23,6 @@ const page = async () => {
         }
     ]
     const session = await auth()
-    console.log(session)
   return (
       <div className="my-10">
         <div className="grid gap-4">
