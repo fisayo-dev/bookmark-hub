@@ -10,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
     return {
         title: session?.user?.name ? `${session.user.name}'s Profile` : "User Profile",
+        description: session?.user?.name ? `This is ${session.user.name}'s profile page. Her bookmark hub email is ${session.user.email}` : "User Profile description",
     };
 }
 
