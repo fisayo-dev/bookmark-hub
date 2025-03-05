@@ -15,7 +15,7 @@ export const metadata = {
 
 const layout = async ({ children }: LayoutProps ) => {
     const session = await auth()
-    if(!session) redirect('/signup')
+    if(!session) redirect('/login')
   return (
     <div className="lg:flex items-start justify-start">
       <Sidebar />   
