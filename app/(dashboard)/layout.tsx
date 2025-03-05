@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react"
 import Sidebar from '@/components/sidebar'
 import ResponsiveHeader from "@/components/ResponsiveHeader";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
 
 interface LayoutProps {
   children: ReactNode
@@ -11,7 +13,9 @@ export const metadata = {
   description: "A bookmark store for your favorite links",
 }
 
-const layout = ({ children }: LayoutProps ) => {
+const layout = async ({ children }: LayoutProps ) => {
+    const session = await auth()
+    if(!session) redirect('/signup')
   return (
     <div className="lg:flex items-start justify-start">
       <Sidebar />   

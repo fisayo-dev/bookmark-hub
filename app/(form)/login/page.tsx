@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
-import {signUp} from "@/lib/actions/auth";
+import {signInWithCredentials} from "@/lib/actions/auth";
 import {useRouter} from "next/navigation";
 
 
@@ -20,8 +20,8 @@ const LoginPage = () => {
 
   const router = useRouter()
 
-  const submitForm = async (data: SignupFormData) => {
-    const result = await signUp(data)
+  const submitForm = async (data: Pick<SignupFormData, 'email'| 'password'>) => {
+    const result = await signInWithCredentials(data)
     if (result.success) {
       console.log("Success")
       router.push("/bookmarks")

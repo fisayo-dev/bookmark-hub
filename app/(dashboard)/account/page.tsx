@@ -2,7 +2,8 @@ import React from 'react'
 import ProfileCard from "@/components/dashboard/ProfileCard";
 import Image from "next/image";
 import {BookmarkIcon, FlameIcon, StarIcon} from "lucide-react";
-import {auth} from "@/auth";
+import {auth, signOut} from "@/auth";
+import {Button} from "@/components/ui/button";
 
 const page = async () => {
     const progressItems: ProgressItems[] = [
@@ -28,6 +29,12 @@ const page = async () => {
         <div className="grid gap-4">
           <div className='app-container flex items-center justify-between'>
             <h2 className=" text-4xl color-pink font-bold">Profile</h2>
+              <form action={async () => {
+                  "use server"
+                  await signOut()
+              }}>
+                  <Button>Logout</Button>
+              </form>
           </div>
           <div className="app-container profile-section-grid py-4">
               <ProfileCard className="border p-2  border-gray-200 rounded-2xl">
