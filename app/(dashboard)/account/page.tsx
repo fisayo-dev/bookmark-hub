@@ -50,14 +50,14 @@ const page = async () => {
                   <div className="grid gap-4">
                       <div className="grid gap-2">
                           <h2 className="text-2xl font-bold">Progress</h2>
-                          <div className="grid gap-4 py-2 grid-cols-3">
+                          <div className="grid gap-2 md:gap-4 py-2 grid-cols-3">
                               {progressItems.map((item,index) => (
                                   <div key={index} className="border border-gray-200 p-4 rounded-2xl gap-4 .flex flex-col items-center text-center">
                                       <div className="text-gray-800 flex items-center justify-center">
-                                          {item.icon}
+                                          <p>{item.icon}</p>
                                           <p className="text-sm">{item.text}</p>
                                       </div>
-                                      <h2 className="text-8xl py-6 font-bold">{item.value}</h2>
+                                      <h2 className="text-6xl md:text-8xl py-6 font-bold">{item.value}</h2>
                                   </div>
                               ))}
                           </div>

@@ -113,11 +113,11 @@ input, button, select {
 }
 
 .profile-section-grid {
-  @apply grid gap-8 items-start;
+  @apply flex flex-col md:grid gap-8 items-start;
   grid-template-columns: 2fr 6fr;
 }
 
 .profile-card {
-  @apply  grid gap-4
+  @apply w-full  grid gap-4
 }
 
