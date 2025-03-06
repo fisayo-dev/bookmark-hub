@@ -52,7 +52,7 @@ const Page = async () => {
                 <div className="app-container profile-section-grid py-4">
                     <ProfileCard className="border p-2 border-gray-200 rounded-2xl">
                         <div className="flex flex-col p-2 text-center items-center gap-2">
-                            <Image src="google.svg" width={150} height={150} alt="profile" />
+                            <Image src="google.svg" width={70} height={70} alt="profile" />
                             <div>
                                 <h2 className="text-2xl font-bold">{session?.user?.name}</h2>
                                 <p>{session?.user?.email}</p>
