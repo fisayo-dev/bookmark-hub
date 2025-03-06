@@ -74,7 +74,7 @@ const Page = async () => {
                                                 <p>{item.icon}</p>
                                                 <p className="text-sm">{item.text}</p>
                                             </div>
-                                            <h2 className="text-6xl md:text-8xl py-6 font-bold">
+                                            <h2 className="text-6xl md:text-8xl py-3 font-bold">
                                                 {item.value}
                                             </h2>
                                         </div>
