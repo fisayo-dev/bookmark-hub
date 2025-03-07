@@ -1,7 +1,6 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import {RocketIcon, SearchIcon} from "lucide-react";
 
 export default function Home() {
