@@ -6,7 +6,7 @@ import React, {useState} from 'react'
 import Link from "next/link";
 import { addBookmark } from '@/lib/actions/bookmark'
 import { getUserId } from '@/lib/actions/general'
-import {redirect, useRouter} from "next/navigation";
+import { useRouter} from "next/navigation";
 
 
 const page =  () => {
