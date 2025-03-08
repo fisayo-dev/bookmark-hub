@@ -6,11 +6,13 @@ import React, {useState} from 'react'
 import Link from "next/link";
 import { addBookmark } from '@/lib/actions/bookmark'
 import { getUserId } from '@/lib/actions/general'
+import {redirect, useRouter} from "next/navigation";
 
 
 const page =  () => {
   const [url, setUrl]  = useState('')
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const createBookmark  = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -25,6 +27,7 @@ const page =  () => {
         owner: userId,
         createdAt: new Date(),
       })
+      router.push('/bookmarks')
     } catch(err) {
       alert(err)
     } finally {
