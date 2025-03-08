@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,15 +19,15 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
             <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
                     {title
-                            ? title.length > 20
-                                ? `${title.substring(0, 20)}...`
-                                : title
-                            : title.length > 20
-                                ? `${title.substring(0, 20)}...`
-                                : title}
+                        ? title.length > (view === "list" ? 23 : 20)
+                            ? `${title.substring(0, view === "list" ? 23 : 20)}...`
+                            : title
+                        : title.length > (view === "list" ? 23 : 20)
+                            ? `${title.substring(0, view === "list" ? 23 : 20)}...`
+                            : title}
                 </h2>
                 <p className="text-nowrap text-sm">
-                    {url.length > 30 ? `${url.substring(0, 30)}...` : url}
+                    {url.length > (view === "list" ? 35 : 25) ? `${url.substring(0, view === "list" ? 35 : 25)}...` : url}
                 </p>
                 {view === "grid" && (
                     <Link
