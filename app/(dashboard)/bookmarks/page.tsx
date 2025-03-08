@@ -7,11 +7,10 @@ export default async function Pages() {
     // Get authenticated user
     const session = await auth();
     const userId = session?.user?.id;
-    console.log(userId);
 
     if (!userId) {
         console.error("User is not authenticated.");
-        return <p className="text-red-500">Please log in to view bookmarks</p>;
+        return <p className="app-container mt-20 text-red-500">Please log in to view bookmarks</p>;
     }
 
     console.log("Fetching bookmarks for userId:", userId);
@@ -26,11 +25,14 @@ export default async function Pages() {
 
     if (!res.ok) {
         console.error("Failed to fetch bookmarks");
-        return <p className="text-red-500">Failed to load bookmarks</p>;
+        return <p className="app-container mt-20 text-red-500">Failed to load bookmarks</p>;
     }
 
-    const bookmarkList = await res.json();
-    console.log("Received bookmarks:", bookmarkList);
+    let bookmarkList = await res.json();
+    // ✅ Sort bookmarks from newest to oldest
+    bookmarkList = bookmarkList.sort((a: Bookmark, b: Bookmark) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
 
     if (!bookmarkList.length) {
         return <p className="app-container mt-20 text-gray-900">No bookmarks found</p>;
