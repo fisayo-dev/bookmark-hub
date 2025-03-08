@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import {LinkIcon} from "lucide-react";
 
 const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: string; favicon: string; url: string }) => {
     return (
@@ -8,14 +9,18 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
                 view === "grid" ? "h-auto" : "flex items-center gap-4"
             }`}
         >
-            <Image
-                height={40}
-                width={40}
-                className={`${view === "grid" ? "mx-auto" : "w-10 h-10"}`}
-                src={favicon || "/not-found.svg"}
-                alt={title || url}
-                unoptimized={true} // Prevents Next.js optimizations if needed
-            />
+            {favicon == 'image' ? (
+                <LinkIcon className={`${view === "grid" && "mx-auto" } w-10 h-10`}/>
+                ) : (
+                <Image
+                    height={40}
+                    width={40}
+                    className={`${view === "grid" ? "mx-auto" : "w-10 h-10"}`}
+                    src={favicon || "/not-found.svg"}
+                    alt={title || url}
+                    unoptimized={true} // Prevents Next.js optimizations if needed
+                />
+            )}
             <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
                     {title
