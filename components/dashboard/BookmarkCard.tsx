@@ -17,7 +17,7 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
                 alt={title || url}
                 unoptimized={true} // Prevents Next.js optimizations if needed
             />
-            <div className="md:py-4 px-4">
+            <div className={`${view == 'grid' && 'md:py-4'} px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
                     {title
                             ? title.length > 20
