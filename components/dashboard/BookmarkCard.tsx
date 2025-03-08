@@ -17,7 +17,7 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
                 alt={title || url}
                 unoptimized={true} // Prevents Next.js optimizations if needed
             />
-            <div className={`${view == 'grid' && 'md:py-4'} px-4`}>
+            <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
                     {title
                             ? title.length > 20
@@ -30,15 +30,27 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
                 <p className="text-nowrap text-sm">
                     {url.length > 30 ? `${url.substring(0, 30)}...` : url}
                 </p>
+                {view === "grid" && (
+                    <Link
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm hover:underline"
+                    >
+                        Visit
+                    </Link>
+                )}
+            </div>
+            {view === "list" && (
                 <Link
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm hover:underline"
+                    className="py-2 px-4 rounded-full bg-gray-200 text-sm hover:underline"
                 >
                     Visit
                 </Link>
-            </div>
+            )}
         </div>
     );
 };
