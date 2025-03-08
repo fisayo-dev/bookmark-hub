@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {LinkIcon, PlusCircle, Loader2} from 'lucide-react'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import Link from "next/link";
 import { addBookmark } from '@/lib/actions/bookmark'
 
@@ -10,17 +10,20 @@ import { addBookmark } from '@/lib/actions/bookmark'
 const page = () => {
   const [url, setUrl]  = useState('')
   const [loading, setLoading] = useState(false)
-  const createBookmark  = async (event) => {
+  const createBookmark  = async (event: React.FormEvent) => {
     event.preventDefault()
     if(!url) return;
 
+    setLoading(true)
     try {
-      addBookmark({
+      await addBookmark({
         url,
         name: `Image - ${url}`
       })
     } catch(err) {
       alert(err)
+    } finally {
+      setLoading(false)
     }
 
   }
