@@ -11,7 +11,9 @@ const BookmarkCard = ({ view, name, url }: { name: string; view: string; url: st
     useEffect(() => {
         async function fetchMetadata() {
             try {
-                const response = await fetch(`http://localhost:3000/api/getMeta?url=${encodeURIComponent(url)}`);
+                const response = await fetch(`/api/getMeta?url=${encodeURIComponent(url)}`, {
+
+                });
                 const data = await response.json();
                 setMeta(data);
             } catch (error) {
@@ -26,20 +28,29 @@ const BookmarkCard = ({ view, name, url }: { name: string; view: string; url: st
 
     return (
         <div
-            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-2 ${
+            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
                 view === "grid" ? "h-auto" : "flex items-center gap-4"
             }`}
         >
             <Image
-                height={100}
-                width={100}
-                className={`${view === "grid" ? "mx-auto" : "w-16 h-16"}`}
+                height={40}
+                width={40}
+                className={`${view === "grid" ? "mx-auto" : "w-10 h-10"}`}
                 src={meta.favicon || "/not-found.svg"}
                 alt={meta.title || name}
+                unoptimized={true} // Prevents Next.js optimizations if needed
             />
-            <div className="px-4">
-                <h2 className="text-nowrap capitalize text-2xl font-bold">
-                    {loading ? "Loading..." : meta.title ? meta.title : name}
+            <div className="md:py-4 px-4">
+                <h2 className="text-nowrap capitalize text-xl font-bold">
+                    {loading
+                        ? "Loading..."
+                        : meta.title
+                            ? meta.title.length > 20
+                                ? `${meta.title.substring(0, 20)}...`
+                                : meta.title
+                            : name.length > 20
+                                ? `${name.substring(0, 20)}...`
+                                : name}
                 </h2>
                 <p className="text-nowrap text-sm">
                     {url.length > 30 ? `${url.substring(0, 30)}...` : url}
