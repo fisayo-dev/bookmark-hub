@@ -13,3 +13,10 @@ export const users = pgTable("users", {
         withTimezone: true,
     }).defaultNow(),
 });
+
+export const bookmarks  = pgTable("bookmarks", {
+    id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
+    url: text("url").notNull(),
+    name: text("name").notNull(),
+    image: text("image").default('bookmark-image-url'),
+})
