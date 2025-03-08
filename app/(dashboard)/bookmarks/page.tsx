@@ -2,34 +2,34 @@ import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
+import { unstable_cache } from "next/cache";
 
 export default async function Pages() {
-    // Get authenticated user
     const session = await auth();
     const userId = session?.user?.id;
 
     if (!userId) {
-        console.error("User is not authenticated.");
         return <p className="app-container mt-20 text-red-500">Please log in to view bookmarks</p>;
     }
 
-    console.log("Fetching bookmarks for userId:", userId);
+    // ✅ Cache bookmarks per user and revalidate when a new one is added
+    const fetchBookmarks = unstable_cache(
+        async (userId) => {
+            const res = await fetch("http://localhost:3000/api/bookmarks", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId }),
+                cache: "no-store", // ✅ Force fresh fetch
+            });
 
-    // Fetch bookmarks from API route
-    const res = await fetch("http://localhost:3000/api/bookmarks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
-        cache: "no-store", // Ensure fresh data
-    });
+            return res.ok ? res.json() : [];
+        },
+        ["bookmarks"], // ✅ Ensure this matches revalidateTag("bookmarks")
+        { revalidate: false }
+    );
 
-    if (!res.ok) {
-        console.error("Failed to fetch bookmarks");
-        return <p className="app-container mt-20 text-red-500">Failed to load bookmarks</p>;
-    }
+    let bookmarkList = await fetchBookmarks(userId);
 
-    let bookmarkList = await res.json();
-    // ✅ Sort bookmarks from newest to oldest
     bookmarkList = bookmarkList.sort((a: Bookmark, b: Bookmark) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );

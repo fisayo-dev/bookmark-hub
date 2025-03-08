@@ -2,8 +2,7 @@
 
 import {db} from "@/database/drizzle";
 import {bookmarks} from "@/database/schema";
-import {eq} from "drizzle-orm";
-import {auth} from "@/auth";
+import {revalidateTag} from "next/cache";
 
 interface Props {
     url: string;
@@ -17,5 +16,6 @@ export const addBookmark = async (data: Props) => {
     await db
         .insert(bookmarks)
         .values(data)
+    revalidateTag("bookmarks")
 }
 

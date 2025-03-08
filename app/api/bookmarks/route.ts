@@ -19,7 +19,10 @@ export async function POST(req: Request) {
 
         return new Response(JSON.stringify(bookmarkList), {
             status: 200,
-            headers: {"Content-Type": "application/json"},
+            headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "s-maxage=60, stale-while-revalidate"
+            },
         });
     } catch (error) {
         console.error("Error fetching bookmarks:", error);
