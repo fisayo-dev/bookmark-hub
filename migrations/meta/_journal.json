@@ -22,6 +22,41 @@
       "when": 1741397910186,
       "tag": "0002_jittery_firelord",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741398341496,
+      "tag": "0003_ordinary_reaper",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1741399461081,
+      "tag": "0004_typical_harry_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741399610063,
+      "tag": "0005_tearful_blindfold",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741399706116,
+      "tag": "0006_stormy_wiccan",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741399840317,
+      "tag": "0007_dazzling_talisman",
+      "breakpoints": true
     }
   ]
 }

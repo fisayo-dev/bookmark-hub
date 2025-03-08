@@ -18,5 +18,9 @@ export const bookmarks  = pgTable("bookmarks", {
     id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
     url: text("url").notNull(),
     name: text("name").notNull(),
-    image: text("image").default('bookmark-image-url'),
+    image: text("image").default('image'),
+    createdAt: timestamp('created_at', {
+        withTimezone: true,
+    }).defaultNow(),
+    owner: text("owner").notNull(),
 })

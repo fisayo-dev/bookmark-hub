@@ -1,0 +1,1 @@
+ALTER TABLE "bookmarks" ALTER COLUMN "image" SET DEFAULT 'bookmark-image';

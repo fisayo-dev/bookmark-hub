@@ -5,20 +5,25 @@ import {LinkIcon, PlusCircle, Loader2} from 'lucide-react'
 import React, {useState} from 'react'
 import Link from "next/link";
 import { addBookmark } from '@/lib/actions/bookmark'
+import { getUserId } from '@/lib/actions/general'
 
 
-const page = () => {
+const page =  () => {
   const [url, setUrl]  = useState('')
   const [loading, setLoading] = useState(false)
+
   const createBookmark  = async (event: React.FormEvent) => {
     event.preventDefault()
+    const userId = await getUserId()
     if(!url) return;
 
     setLoading(true)
     try {
       await addBookmark({
         url,
-        name: `Image - ${url}`
+        name: `Image - ${url}`,
+        owner: userId,
+        createdAt: new Date(),
       })
     } catch(err) {
       alert(err)
