@@ -17,3 +17,12 @@ type ProgressItems = {
     icon: React.ReactNode;
     text: string;
 }
+
+interface Bookmark {
+    owner: string,
+    id: string,
+    name: string,
+    image: string,
+    url: string,
+    createdAt: Date,
+}

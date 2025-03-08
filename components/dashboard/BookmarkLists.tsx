@@ -5,12 +5,6 @@ import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
 
-interface Bookmark {
-    userId: number,
-    id: number,
-    title: string,
-    body: string,
-}
 
 interface Props {
   bookmarks: Bookmark[];
@@ -41,7 +35,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
 
   // Filter bookmarks based on search input
   const filteredBookmarks = bookmarks.filter((bookmark) =>
-    bookmark.title.toLowerCase().includes(search.toLowerCase()) || bookmark.body.toLowerCase().includes(search.toLowerCase())
+    bookmark.name.toLowerCase().includes(search.toLowerCase()) || bookmark.url.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -73,7 +67,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
       {/* Bookmarks Display */}
       <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
         {filteredBookmarks.map((bookmark, index) => (
-         <BookmarkCard key={index} title={bookmark.title} body={bookmark.body} view={view}/>
+         <BookmarkCard key={index} url={bookmark.url} name={bookmark.name} view={view}/>
         ))}
       </div>
     </div>

@@ -1,23 +1,21 @@
 import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import {BookmarkIcon} from 'lucide-react'
 import Link from "next/link";
+import {db} from "@/database/drizzle";
+import {bookmarks} from "@/database/schema";
+import {eq} from "drizzle-orm";
+import {auth} from "@/auth";
 
-interface Bookmark {
-  userId: number,
-  id: number,
-  title: string,
-  body: string,
-}
 
-// Fetch data on the server
-async function getBookmarks(): Promise<Bookmark[]> {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", { cache: "force-cache" }); 
-  if (!res.ok) throw new Error("Failed to fetch bookmarks");
-  return res.json();
-}
+
 
 export default async function Pages() {
-  const bookmarks = await getBookmarks(); // Fetching happens server-side
+  const session = await auth();
+  const userId = session?.user?.id as string;
+  const bookmarkList = await db
+      .select()
+      .from(bookmarks)
+      .where(eq(bookmarks.owner, userId)) // Fetching happens server-side
 
   return (
     <div className="my-10">
@@ -31,7 +29,7 @@ export default async function Pages() {
             </Link>
           </div>
         </div>
-        <BookmarkLists bookmarks={bookmarks} />
+        <BookmarkLists bookmarks={bookmarkList} />
       </div>
     </div>
   );
