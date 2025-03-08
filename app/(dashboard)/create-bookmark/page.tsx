@@ -20,7 +20,7 @@ const page =  () => {
 
     setLoading(true)
     try {
-      const metaDataResponse = await fetch(`http://localhost:3000/api/getMeta?url=${encodeURIComponent(url)}`);
+      const metaDataResponse = await fetch(`/api/getMeta?url=${encodeURIComponent(url)}`);
       const data = await metaDataResponse.json();
       console.log(data)
 
