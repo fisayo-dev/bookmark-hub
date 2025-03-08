@@ -10,7 +10,7 @@ const fetchBookmarks = cache(async (userId: string): Promise<Bookmark[]> => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
-        next: { revalidate: 150 }, // Cache data for 1.5 minutes
+        next: { revalidate: 60 }, // Cache data for 1 minutes
     });
 
     if (!res.ok) return [];
