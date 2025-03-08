@@ -4,18 +4,34 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 const BookmarkCard = ({ view, name, url }: { name: string; view: string; url: string }) => {
     const [meta, setMeta] = useState<{ title?: string; favicon?: string }>({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchMetadata() {
+            const cacheKey = `meta-${url}`;
+            const cachedData = localStorage.getItem(cacheKey);
+            const cachedTime = localStorage.getItem(`${cacheKey}-time`);
+
+            if (cachedData && cachedTime && Date.now() - Number(cachedTime) < CACHE_DURATION) {
+                setMeta(JSON.parse(cachedData)); // Use cached data
+                setLoading(false);
+                return;
+            }
+
             try {
                 const response = await fetch(`/api/getMeta?url=${encodeURIComponent(url)}`, {
-
+                    next: { revalidate: 300 }, // Backend caches data for 5 minutes
                 });
                 const data = await response.json();
                 setMeta(data);
+
+                // Store metadata in localStorage with a timestamp
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                localStorage.setItem(`${cacheKey}-time`, Date.now().toString());
             } catch (error) {
                 console.error("Error fetching metadata:", error);
             } finally {
