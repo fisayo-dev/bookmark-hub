@@ -5,6 +5,9 @@ import { BookmarkIcon, FlameIcon, StarIcon } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
+import {db} from "@/database/drizzle";
+import {bookmarks} from "@/database/schema"
+import {eq} from "drizzle-orm";
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
@@ -15,11 +18,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const Page = async () => {
+    const session = await auth();
+    const userId = session?.user?.id as string
+
+    const res = await fetch("http://localhost:3000/api/bookmarks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+        next: { revalidate: 60 }, // Cache data for 1 minutes
+    });
+
+    if (!res.ok) return [];
+
+    let userBookmarks: Bookmark[] = await res.json();
+
+    const userBookmarkLength =  userBookmarks.length;
     const progressItems = [
         {
             text: "Bookmarks",
             icon: <BookmarkIcon className="h-4 w-4" />,
-            value: 26,
+            value: userBookmarkLength,
         },
         {
             text: "Streaks",
@@ -33,9 +51,7 @@ const Page = async () => {
         },
     ];
 
-    const session = await auth();
-
-    return (
+        return (
         <div className="my-10">
             <div className="grid gap-4">
                 <div className="app-container flex items-center justify-between">
