@@ -2,7 +2,16 @@ import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
-import { cache } from "react"; // Caching API
+import { cache } from "react";
+import {Metadata} from "next"; // Caching API
+
+export async function generateMetadata(): Promise<Metadata> {
+    const session = await auth();
+    return {
+        title: session?.user?.name ? `${session.user.name} - Bookmark Hub` : "User Bookmarks page",
+        description: session?.user?.name ? `This is ${session.user.name}'s bookmarks page. All bookmarks here belong to ${session.user.name}` : "User bookmark page description - A page that contains all the user bookmarks",
+    };
+}
 
 // Function to fetch bookmarks with caching
 const fetchBookmarks = cache(async (userId: string): Promise<Bookmark[]> => {

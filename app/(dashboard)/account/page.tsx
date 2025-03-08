@@ -5,9 +5,6 @@ import { BookmarkIcon, FlameIcon, StarIcon } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
-import {db} from "@/database/drizzle";
-import {bookmarks} from "@/database/schema"
-import {eq} from "drizzle-orm";
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
