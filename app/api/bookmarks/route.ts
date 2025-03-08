@@ -3,10 +3,9 @@ import { bookmarks } from "@/database/schema";
 import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
-    const {userId} =await req.json();
+    const {userId} = await req.json();
     try {
         // Authenticate user
-
         if (!userId) {
             return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
         }
@@ -15,7 +14,7 @@ export async function POST(req: Request) {
         const bookmarkList = await db
             .select()
             .from(bookmarks)
-            .where(eq(bookmarks.owner, userId))
+            .where(eq(bookmarks.owner, userId.toString()))
             .execute();
 
         return new Response(JSON.stringify(bookmarkList), {
