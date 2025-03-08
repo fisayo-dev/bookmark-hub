@@ -18,6 +18,7 @@ const Page = async () => {
     const session = await auth();
     const userId = session?.user?.id as string
 
+    // Getting user bookmarks length
     const res = await fetch("http://localhost:3000/api/bookmarks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -26,10 +27,11 @@ const Page = async () => {
     });
 
     if (!res.ok) return [];
-
     let userBookmarks: Bookmark[] = await res.json();
-
     const userBookmarkLength =  userBookmarks.length;
+
+    // Getting user details
+
     const progressItems = [
         {
             text: "Bookmarks",
