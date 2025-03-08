@@ -16,21 +16,37 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const Page = async () => {
     const session = await auth();
-    const userId = session?.user?.id as string
+    const userId = session?.user?.id as string;
 
     // Getting user bookmarks length
-    const res = await fetch("http://localhost:3000/api/bookmarks", {
+    const bookmarkData = await fetch("http://localhost:3000/api/bookmarks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
-        next: { revalidate: 60 }, // Cache data for 1 minutes
+        next: { revalidate: 60 }, // Cache data for 1 minute
     });
 
-    if (!res.ok) return [];
-    let userBookmarks: Bookmark[] = await res.json();
-    const userBookmarkLength =  userBookmarks.length;
+    if (!bookmarkData.ok) return [];
+    let userBookmarks: Bookmark[] = await bookmarkData.json();
+    const userBookmarkLength = userBookmarks.length;
 
     // Getting user details
+    const userResponse = await fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+        next: { revalidate: 60 }, // Cache data for 1 minute
+    });
+    const userData = await userResponse.json();
+
+    // Format the join date based on userData.createdAt
+    const joinedDate = userData?.createdAt
+        ? new Date(userData.createdAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+        })
+        : "N/A";
 
     const progressItems = [
         {
@@ -50,7 +66,7 @@ const Page = async () => {
         },
     ];
 
-        return (
+    return (
         <div className="my-10">
             <div className="grid gap-4">
                 <div className="app-container flex items-center justify-between">
@@ -69,9 +85,9 @@ const Page = async () => {
                         <div className="flex flex-col p-2 text-center items-center gap-2">
                             <Image src="google.svg" width={70} height={70} alt="profile" />
                             <div>
-                                <h2 className="text-2xl font-bold">{session?.user?.name}</h2>
-                                <p>{session?.user?.email}</p>
-                                <p className="text-sm text-gray-800">Joined Dec 9, 2025</p>
+                                <h2 className="text-2xl font-bold">{userData?.fullName}</h2>
+                                <p>{userData?.email}</p>
+                                <p className="text-sm text-gray-800">Joined {joinedDate}</p>
                             </div>
                         </div>
                     </ProfileCard>
