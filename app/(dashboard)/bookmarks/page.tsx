@@ -1,21 +1,29 @@
 import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
-import { db } from "@/database/drizzle";
-import { bookmarks } from "@/database/schema";
-import { eq } from "drizzle-orm";
-import { auth } from "@/auth";
 import { revalidateTag } from "next/cache";
+import {auth} from "@/auth";
 
 export default async function Pages() {
+  // Fetch bookmarks from API route
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  const bookmarkList = await db
-      .select()
-      .from(bookmarks)
-      .where(eq(bookmarks.owner, userId))
-      .execute();
+  const res = await fetch("http://localhost:3000/api/bookmarks", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({userId}),
+        credentials: "include",
+  });
+
+
+  if (!res.ok) {
+    console.error("Failed to fetch bookmarks");
+    return <p className="text-red-500">Failed to load bookmarks</p>;
+  }
+
+  const bookmarkList = await res.json();
+  console.log(bookmarkList);
 
   return (
       <div className="my-10">
