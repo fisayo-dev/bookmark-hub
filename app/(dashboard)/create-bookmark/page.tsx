@@ -23,10 +23,16 @@ const page =  () => {
 
     setLoading(true)
     try {
+      const metaDataResponse = await fetch(`/api/getMeta?url=${encodeURIComponent(url)}`, {
+        next: { revalidate: 300 }, // Backend caches data for 5 minutes
+      });
+      const data = await metaDataResponse.json();
+
       await addBookmark({
         url,
-        name: `Image - ${url}`,
+        name: data?.title,
         owner: userId,
+        image: data?.favicon,
         createdAt: new Date(),
       })
       router.push('/bookmarks')
