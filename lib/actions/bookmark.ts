@@ -19,14 +19,3 @@ export const addBookmark = async (data: Props) => {
         .values(data)
 }
 
-export const fetchBookmarks = async () => {
-    const session = await auth();
-    const userId = session?.user?.id as string;
-
-    const bookmarkList = await db
-        .select()
-        .from(bookmarks)
-        .where(eq(bookmarks.owner, userId))
-
-    return {bookmarkList}
-}
