@@ -3,8 +3,7 @@
 import { db } from "@/database/drizzle";
 import { bookmarks } from "@/database/schema";
 import { revalidatePath } from "next/cache";
-import {eq} from "drizzle-orm";
-import {redirect} from "next/navigation"; // Import Next.js cache invalidation
+import { eq } from "drizzle-orm";
 
 interface Props {
     url: string;
@@ -14,42 +13,29 @@ interface Props {
     createdAt: Date;
 }
 
-
 export const addBookmark = async (data: Props) => {
     await db.insert(bookmarks).values(data);
-
-    // ✅ Clear cache for the bookmarks page after adding a new bookmark
     revalidatePath("/bookmarks");
 };
 
-
 export const deleteBookmark = async (id: string) => {
-    await db
-        .delete(bookmarks)
-        .where(eq(bookmarks.id, id));
-
-    // ✅ Clear cache for the bookmarks page after deleting bookmark
+    await db.delete(bookmarks).where(eq(bookmarks.id, id));
     revalidatePath("/bookmarks");
-}
+};
 
-export const editBookmark = async (id: string, newUrl: string) => {
-    try {
-        const metaDataResponse = await fetch(`/api/getMeta?url=${encodeURIComponent(newUrl)}`);
-        const data = await metaDataResponse.json();
-        console.log(data)
-
+export const editBookmark = async (id: string, title: string, favicon:string, newUrl: string) => {
+    try{
         await db
             .update(bookmarks)
             .set({
-                url:newUrl,
-                name: data?.title,
-                image: data?.favicon,
+                url: newUrl,
+                name: title || "Untitled",
+                image: favicon || null,
             })
             .where(eq(bookmarks.id, id));
 
-        // ✅ Clear cache for the bookmarks page after editing bookmark
         revalidatePath("/bookmarks");
-    } catch(err) {
-        console.log(err, 'Error occurred trying to get meta data of new url');
+    } catch (err) {
+        console.error("Error fetching metadata:", err);
     }
-}
+};

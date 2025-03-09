@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface BookmarkStyleBtns {
-    function: Function;
+    function: () => void;
     icon: ReactNode;
     name?: string;
 }
@@ -48,12 +48,33 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     };
 
     const updateBookmark = async (id: string, newUrl: string) => {
-        await editBookmark(id, newUrl);
-        setBookmarksState((prev) =>
-            prev.map((bookmark) =>
-                bookmark.id === id ? { ...bookmark, url: newUrl } : bookmark
-            )
-        );
+        try {
+            if (!newUrl.startsWith("http")) {
+                throw new Error("Invalid URL. Please enter a valid URL.");
+            }
+
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+            const metaDataResponse = await fetch(`${apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
+
+            if (!metaDataResponse.ok) {
+                throw new Error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
+            }
+
+            const data = await metaDataResponse.json();
+
+            await editBookmark(id, data?.title ?? "No Title", data?.favicon ?? "", newUrl);
+
+            setBookmarksState((prev) =>
+                prev.map((bookmark) =>
+                    bookmark.id === id ? { ...bookmark, url: newUrl, name: data?.title, image: data?.favicon } : bookmark
+                )
+            );
+
+            router.refresh();
+        } catch (err) {
+            console.error("Update bookmark error:", err);
+            alert("Failed to update bookmark. Please check the URL.");
+        }
     };
 
     return (
@@ -73,10 +94,10 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                     {bookmarkStyleBtns.map((btn, index) => (
                         <div
                             key={index}
-                            onClick={() => btn.function()}
+                            onClick={btn.function}
                             className={`cursor-pointer hover:bg-gray-200 p-2 rounded-full ${
-                                btn.name == "grid" && view === "grid" && "bg-gray-200"
-                            } ${btn.name == "list" && view === "list" && "bg-gray-200"}`}
+                                btn.name === view ? "bg-gray-200" : ""
+                            }`}
                         >
                             {btn.icon}
                         </div>
@@ -91,7 +112,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                         : "flex flex-col gap-4"
                 }
             >
-                {filteredBookmarks.map((bookmark, index) => (
+                {filteredBookmarks.map((bookmark) => (
                     <BookmarkCard
                         key={bookmark.id}
                         onEdit={(url) => updateBookmark(bookmark.id, url)}
