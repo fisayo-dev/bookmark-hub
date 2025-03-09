@@ -14,6 +14,7 @@ interface Props {
     createdAt: Date;
 }
 
+
 export const addBookmark = async (data: Props) => {
     await db.insert(bookmarks).values(data);
 
@@ -29,5 +30,26 @@ export const deleteBookmark = async (id: string) => {
 
     // ✅ Clear cache for the bookmarks page after deleting bookmark
     revalidatePath("/bookmarks");
+}
 
+export const editBookmark = async (id: string, newUrl: string) => {
+    try {
+        const metaDataResponse = await fetch(`/api/getMeta?url=${encodeURIComponent(newUrl)}`);
+        const data = await metaDataResponse.json();
+        console.log(data)
+
+        await db
+            .update(bookmarks)
+            .set({
+                url:newUrl,
+                name: data?.title,
+                image: data?.favicon,
+            })
+            .where(eq(bookmarks.id, id));
+
+        // ✅ Clear cache for the bookmarks page after editing bookmark
+        revalidatePath("/bookmarks");
+    } catch(err) {
+        console.log(err, 'Error occurred trying to get meta data of new url');
+    }
 }

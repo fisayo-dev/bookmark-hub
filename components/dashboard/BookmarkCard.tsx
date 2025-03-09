@@ -1,16 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import {LinkIcon, MoreHorizontal, MoreVertical} from "lucide-react";
+import { LinkIcon, MoreVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { deleteBookmark } from "@/lib/actions/bookmark";
-import {useRouter} from "next/navigation";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-const BookmarkCard = ({ id, view, title, favicon, url }: { title: string; id:string; view: string; favicon: string; url: string; }) => {
-    const router = useRouter();
+const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: string; view: string; favicon: string; url: string; onEdit: (newUrl: string) => void; onDelete: () => void }) => {
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [newUrl, setNewUrl] = useState(url);
+
     return (
         <div
-            className={`hover:border-gray-400  items-center overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
-                view === "grid" ? "h-auto" : "flex  gap-4"
+            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
+                view === "grid" ? "h-auto" : "flex items-center gap-4"
             } relative`}
         >
             {favicon === 'image' ? (
@@ -59,20 +63,31 @@ const BookmarkCard = ({ id, view, title, favicon, url }: { title: string; id:str
                     Visit
                 </Link>
             )}
-            <div className={`${view == 'grid' && 'absolute top-4 right-4'} `}>
+            <div className="absolute top-2 right-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger>
-                        <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
+                        <MoreVertical className="w-5 h-5 cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-500" onClick={async () => {
-                            await deleteBookmark(id)
-                            router.push('/bookmarks')
-                        }}>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setIsEditOpen(true)}>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={onDelete} className="text-red-500">Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+
+            {/* Edit Dialog */}
+            <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Edit Bookmark</DialogTitle>
+                    </DialogHeader>
+                    <Input value={newUrl} onChange={(e) => setNewUrl(e.target.value)} placeholder="Enter new URL" />
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsEditOpen(false)}>Cancel</Button>
+                        <Button onClick={() =>{ onEdit(newUrl); setIsEditOpen(false) }}>Save</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

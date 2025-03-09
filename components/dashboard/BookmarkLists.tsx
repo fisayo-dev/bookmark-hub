@@ -4,6 +4,8 @@ import {ReactNode, useState} from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
+import {deleteBookmark, editBookmark} from "@/lib/actions/bookmark";
+import {useRouter} from "next/navigation";
 
 
 interface Props {
@@ -17,8 +19,9 @@ interface BookmarkStyleBtns {
 }
 
 const BookmarkLists = ({ bookmarks }: Props) => {
-  const [view, setView] = useState<"grid" | "list">("grid"); // State to toggle layout
-  const [search, setSearch] = useState(""); // State for search input
+    const [view, setView] = useState<"grid" | "list">("grid"); // State to toggle layout
+    const [search, setSearch] = useState(""); // State for search input
+    const router = useRouter();
 
     const bookmarkStyleBtns: BookmarkStyleBtns[] = [
         {
@@ -33,10 +36,20 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         }
     ]
 
-  // Filter bookmarks based on search input
-  const filteredBookmarks = bookmarks.filter((bookmark) =>
-    bookmark.name.toLowerCase().includes(search.toLowerCase()) || bookmark.url.toLowerCase().includes(search.toLowerCase())
-  );
+      // Filter bookmarks based on search input
+      const filteredBookmarks = bookmarks.filter((bookmark) =>
+        bookmark.name.toLowerCase().includes(search.toLowerCase()) || bookmark.url.toLowerCase().includes(search.toLowerCase())
+      )
+
+    const removeBookmark = async (id: string) => {
+        await deleteBookmark(id)
+        router.push('/bookmarks')
+    }
+
+    const updateBookmark = async (id: string, newUrl: string) => {
+        await editBookmark(id, newUrl);
+        router.push('/bookmarks');
+    }
 
   return (
     <div className="app-container">
@@ -67,7 +80,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
       {/* Bookmarks Display */}
       <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
         {filteredBookmarks.map((bookmark, index) => (
-         <BookmarkCard key={index} id={bookmark.id} url={bookmark.url} favicon={bookmark.image} title={bookmark.name} view={view}/>
+         <BookmarkCard key={index} onEdit={() => updateBookmark(bookmark.id,bookmark.url)} onDelete={() => removeBookmark(bookmark.id)} url={bookmark.url} favicon={bookmark.image} title={bookmark.name} view={view}/>
         ))}
       </div>
     </div>
