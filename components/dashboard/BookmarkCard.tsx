@@ -7,9 +7,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: string; view: string; favicon: string; url: string; onEdit: (newUrl: string) => void; onDelete: () => void }) => {
+const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: string; view: string; favicon: string; url: string; onEdit: (newUrl: string) => Promise<void>; onDelete: () => void }) => {
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [newUrl, setNewUrl] = useState(url);
+
+    const handleEdit = async () => {
+        await onEdit(newUrl);
+        setIsEditOpen(false);
+    };
 
     return (
         <div
@@ -31,13 +36,7 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
             )}
             <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
-                    {title
-                        ? title.length > (view === "list" ? 23 : 20)
-                            ? `${title.substring(0, view === "list" ? 23 : 20)}...`
-                            : title
-                        : title.length > (view === "list" ? 23 : 20)
-                            ? `${title.substring(0, view === "list" ? 23 : 20)}...`
-                            : title}
+                    {title.length > (view === "list" ? 23 : 20) ? `${title.substring(0, view === "list" ? 23 : 20)}...` : title}
                 </h2>
                 <p className="text-nowrap text-sm">
                     {url.length > (view === "list" ? 35 : 25) ? `${url.substring(0, view === "list" ? 35 : 25)}...` : url}
@@ -84,7 +83,7 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                     <Input value={newUrl} onChange={(e) => setNewUrl(e.target.value)} placeholder="Enter new URL" />
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsEditOpen(false)}>Cancel</Button>
-                        <Button onClick={() =>{ onEdit(newUrl); setIsEditOpen(false) }}>Save</Button>
+                        <Button onClick={handleEdit}>Save</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

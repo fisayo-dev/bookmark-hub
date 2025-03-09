@@ -1,15 +1,14 @@
 "use client";
 
-import {ReactNode, useState} from "react";
+import { ReactNode, useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
-import {deleteBookmark, editBookmark} from "@/lib/actions/bookmark";
-import {useRouter} from "next/navigation";
-
+import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  bookmarks: Bookmark[];
+    bookmarks: Bookmark[];
 }
 
 interface BookmarkStyleBtns {
@@ -19,72 +18,93 @@ interface BookmarkStyleBtns {
 }
 
 const BookmarkLists = ({ bookmarks }: Props) => {
-    const [view, setView] = useState<"grid" | "list">("grid"); // State to toggle layout
-    const [search, setSearch] = useState(""); // State for search input
+    const [view, setView] = useState<"grid" | "list">("grid");
+    const [search, setSearch] = useState("");
+    const [bookmarksState, setBookmarksState] = useState(bookmarks);
     const router = useRouter();
 
     const bookmarkStyleBtns: BookmarkStyleBtns[] = [
         {
             function: () => setView("grid"),
-            icon:  <Grid className="h-7 w-7" />,
-            name: 'grid'
+            icon: <Grid className="h-7 w-7" />,
+            name: "grid",
         },
         {
             function: () => setView("list"),
-            icon:  <List className="h-7 w-7" />,
-            name: 'list'
-        }
-    ]
+            icon: <List className="h-7 w-7" />,
+            name: "list",
+        },
+    ];
 
-      // Filter bookmarks based on search input
-      const filteredBookmarks = bookmarks.filter((bookmark) =>
-        bookmark.name.toLowerCase().includes(search.toLowerCase()) || bookmark.url.toLowerCase().includes(search.toLowerCase())
-      )
+    const filteredBookmarks = bookmarksState.filter(
+        (bookmark) =>
+            bookmark.name.toLowerCase().includes(search.toLowerCase()) ||
+            bookmark.url.toLowerCase().includes(search.toLowerCase())
+    );
 
     const removeBookmark = async (id: string) => {
-        await deleteBookmark(id)
-        router.push('/bookmarks')
-    }
+        await deleteBookmark(id);
+        setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
+    };
 
     const updateBookmark = async (id: string, newUrl: string) => {
         await editBookmark(id, newUrl);
-        router.push('/bookmarks');
-    }
+        setBookmarksState((prev) =>
+            prev.map((bookmark) =>
+                bookmark.id === id ? { ...bookmark, url: newUrl } : bookmark
+            )
+        );
+    };
 
-  return (
-    <div className="app-container">
-      <div className="flex items-center gap-4 py-4">
-        <div className="bg-gray-100 w-full px-4 gap-2 py-3 rounded-2xl flex items-center">
-          <SearchIcon className="h-6 w-6 text-gray-400" />
-          <Input
-            className="w-full px-0 py-1"
-            placeholder="Search for your bookmarks 😎"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    return (
+        <div className="app-container">
+            <div className="flex items-center gap-4 py-4">
+                <div className="bg-gray-100 w-full px-4 gap-2 py-3 rounded-2xl flex items-center">
+                    <SearchIcon className="h-6 w-6 text-gray-400" />
+                    <Input
+                        className="w-full px-0 py-1"
+                        placeholder="Search for your bookmarks 😎"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+
+                <div className="flex items-center gap-2">
+                    {bookmarkStyleBtns.map((btn, index) => (
+                        <div
+                            key={index}
+                            onClick={() => btn.function()}
+                            className={`cursor-pointer hover:bg-gray-200 p-2 rounded-full ${
+                                btn.name == "grid" && view === "grid" && "bg-gray-200"
+                            } ${btn.name == "list" && view === "list" && "bg-gray-200"}`}
+                        >
+                            {btn.icon}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div
+                className={
+                    view === "grid"
+                        ? "grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"
+                        : "flex flex-col gap-4"
+                }
+            >
+                {filteredBookmarks.map((bookmark, index) => (
+                    <BookmarkCard
+                        key={bookmark.id}
+                        onEdit={(url) => updateBookmark(bookmark.id, url)}
+                        onDelete={() => removeBookmark(bookmark.id)}
+                        url={bookmark.url}
+                        favicon={bookmark.image}
+                        title={bookmark.name}
+                        view={view}
+                    />
+                ))}
+            </div>
         </div>
-
-        {/* Layout Toggle Buttons */}
-        <div className="flex items-center gap-2">
-            {bookmarkStyleBtns.map((btn, index) => (
-              <div key={index}
-                onClick={() => btn.function()}
-                className={`cursor-pointer hover:bg-gray-200 p-2 rounded-full ${btn.name == 'grid' && view === "grid" && "bg-gray-200"} ${btn.name == 'list' && view === "list" && "bg-gray-200"}`}
-              >
-                  {btn.icon}
-              </div>
-            ))}
-        </div>
-      </div>
-
-      {/* Bookmarks Display */}
-      <div className={view === "grid" ? "grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
-        {filteredBookmarks.map((bookmark, index) => (
-         <BookmarkCard key={index} onEdit={() => updateBookmark(bookmark.id,bookmark.url)} onDelete={() => removeBookmark(bookmark.id)} url={bookmark.url} favicon={bookmark.image} title={bookmark.name} view={view}/>
-        ))}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BookmarkLists;
