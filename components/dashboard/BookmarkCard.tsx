@@ -23,7 +23,7 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
     return (
         <div
             className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
-                view === "grid" ? "h-auto" : "flex items-center gap-4"
+                view === "grid" ? "h-auto" : "bookmark-list-mode-grid "
             } relative`}
         >
             {favicon === 'image' ? (
@@ -38,8 +38,8 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                     unoptimized={true} // Prevents Next.js optimizations if needed
                 />
             )}
-            <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
-                <h2 className="text-nowrap capitalize text-xl font-bold">
+            <div className={`${view == 'grid' && 'md:py-4'}`}>
+                <h2 className={`text-nowrap capitalize font-bold`}>
                     {title.length > (view === "list" ? 20 : 15) ? `${title.substring(0, view === "list" ? 20 : 15)}...` : title}
                 </h2>
                 <p className="text-nowrap text-sm">
