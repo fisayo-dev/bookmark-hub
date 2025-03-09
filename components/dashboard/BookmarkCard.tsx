@@ -12,6 +12,10 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
     const [newUrl, setNewUrl] = useState(url);
 
     const handleEdit = async () => {
+        if (url == newUrl) {
+            setIsEditOpen(false);
+            return;
+        }
         await onEdit(newUrl);
         setIsEditOpen(false);
     };
