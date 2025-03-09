@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LinkIcon, MoreVertical } from "lucide-react";
+import {LinkIcon, MoreVertical, PencilIcon, TrashIcon} from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
@@ -68,8 +68,18 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                         <MoreVertical className="w-5 h-5 cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => setIsEditOpen(true)}>Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={onDelete} className="text-red-500">Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
+                            <div className="flex items-center gap-2">
+                                <PencilIcon className="w-5 h-5"/>
+                                <p>Edit</p>
+                            </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
+                            <div className="flex items-center gap-2">
+                                <TrashIcon className="w-5 h-5"/>
+                                <p>Delete</p>
+                            </div>
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
