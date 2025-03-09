@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import {ReactNode} from 'react'
+import { ReactNode } from "react";
 import "./globals.css";
-import {SessionProvider} from "next-auth/react";
-import {auth} from "@/auth";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Bookmark Hub",
@@ -10,21 +11,19 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-  children,
-}: Readonly<{
+                                           children,
+                                         }: Readonly<{
   children: ReactNode;
 }>) {
-  const session = await auth()
+  const session = await auth();
   return (
-    <html lang="en">
-    <SessionProvider session={session}>
-      <body
-        className='antialiased'
-      >
+      <html lang="en">
+      <SessionProvider session={session}>
+        <body>
+        <Toaster className="sooner-toast"/>
         {children}
-      </body>
-    </SessionProvider>
-
-    </html>
+        </body>
+      </SessionProvider>
+      </html>
   );
 }

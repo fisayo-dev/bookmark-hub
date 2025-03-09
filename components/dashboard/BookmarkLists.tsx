@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
 import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner"; // ✅ Import Sonner toast
 
 interface Props {
     bookmarks: Bookmark[];
@@ -43,21 +44,28 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     );
 
     const removeBookmark = async (id: string) => {
-        await deleteBookmark(id);
-        setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
+        try {
+            await deleteBookmark(id);
+            setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
+            toast.success("Bookmark deleted successfully!");
+        } catch (err) {
+            toast.error("Failed to delete bookmark.");
+        }
     };
 
     const updateBookmark = async (id: string, newUrl: string) => {
         try {
             if (!newUrl.startsWith("http")) {
-                throw new Error("Invalid URL. Please enter a valid URL.");
+               toast.error("Invalid URL. Please enter a valid URL.");
+               return;
             }
 
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
             const metaDataResponse = await fetch(`${apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
 
             if (!metaDataResponse.ok) {
-                throw new Error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
+                toast.error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
+                return;
             }
 
             const data = await metaDataResponse.json();
@@ -70,10 +78,10 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 )
             );
 
+            toast.success("Bookmark updated successfully! 🎉");
             router.refresh();
         } catch (err) {
-            console.error("Update bookmark error:", err);
-            alert("Failed to update bookmark. Please check the URL.");
+            toast.error("Failed to update bookmark. ❌ Please check the URL.");
         }
     };
 

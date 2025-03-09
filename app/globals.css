@@ -18,6 +18,10 @@ body {
   background-color: var(--background);
 }
 
+.sonner-toast {
+  font-family:  'Bricolage Grotesque', sans-serif !important;
+}
+
 .app-container {
   @apply container mx-auto xl:px-[5rem] px-5;
 }
