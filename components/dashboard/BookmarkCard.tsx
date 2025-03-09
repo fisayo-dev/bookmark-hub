@@ -40,10 +40,10 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
             )}
             <div className={`${view == 'grid' && 'md:py-4'} w-full px-4`}>
                 <h2 className="text-nowrap capitalize text-xl font-bold">
-                    {title.length > (view === "list" ? 23 : 20) ? `${title.substring(0, view === "list" ? 23 : 20)}...` : title}
+                    {title.length > (view === "list" ? 20 : 15) ? `${title.substring(0, view === "list" ? 20 : 15)}...` : title}
                 </h2>
                 <p className="text-nowrap text-sm">
-                    {url.length > (view === "list" ? 35 : 25) ? `${url.substring(0, view === "list" ? 35 : 25)}...` : url}
+                    {url.length > (view === "list" ? 25 : 20) ? `${url.substring(0, view === "list" ? 25 : 20)}...` : url}
                 </p>
                 {view === "grid" && (
                     <Link
@@ -56,36 +56,38 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                     </Link>
                 )}
             </div>
-            {view === "list" && (
-                <Link
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-2 px-4 rounded-full bg-gray-200 text-sm hover:underline"
-                >
-                    Visit
-                </Link>
-            )}
-            <div className={`${view == 'grid' && "absolute top-2 right-2"}`}>
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
-                            <div className="flex items-center gap-2">
-                                <PencilIcon className="w-5 h-5"/>
-                                <p>Edit</p>
-                            </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
-                            <div className="flex items-center gap-2">
-                                <TrashIcon className="w-5 h-5"/>
-                                <p>Delete</p>
-                            </div>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+            <div className="flex justify-end items-center gap-2">
+                {view === "list" && (
+                    <Link
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2 px-4 rounded-full bg-gray-200 text-sm hover:underline"
+                    >
+                        Visit
+                    </Link>
+                )}
+                <div className={`${view == 'grid' && "absolute top-2 right-2"}`}>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
+                                <div className="flex items-center gap-2">
+                                    <PencilIcon className="w-5 h-5"/>
+                                    <p>Edit</p>
+                                </div>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
+                                <div className="flex items-center gap-2">
+                                    <TrashIcon className="w-5 h-5"/>
+                                    <p>Delete</p>
+                                </div>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
 
             {/* Edit Dialog */}
