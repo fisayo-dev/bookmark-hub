@@ -62,10 +62,10 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                     Visit
                 </Link>
             )}
-            <div className="absolute top-2 right-2">
+            <div className={`${view == 'grid' && "absolute top-2 right-2"}`}>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
-                        <MoreVertical className="w-5 h-5 cursor-pointer" />
+                        <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
