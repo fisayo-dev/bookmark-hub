@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import {LinkIcon} from "lucide-react";
+import {LinkIcon, MoreHorizontal, MoreVertical} from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: string; favicon: string; url: string }) => {
+const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: string; view: string; favicon: string; url: string; onEdit: () => void; onDelete: () => void }) => {
     return (
         <div
-            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
-                view === "grid" ? "h-auto" : "flex items-center gap-4"
-            }`}
+            className={`hover:border-gray-400  items-center overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
+                view === "grid" ? "h-auto" : "flex  gap-4"
+            } relative`}
         >
-            {favicon == 'image' ? (
-                <LinkIcon className={`${view === "grid" && "mx-auto" } w-10 h-10`}/>
-                ) : (
+            {favicon === 'image' ? (
+                <LinkIcon className={`${view === "grid" && "mx-auto" } w-10 h-10`} />
+            ) : (
                 <Image
                     height={40}
                     width={40}
@@ -55,6 +56,17 @@ const BookmarkCard = ({ view, title, favicon, url }: { title: string; view: stri
                     Visit
                 </Link>
             )}
+            <div className={`${view == 'grid' && 'absolute top-4 right-4'} `}>
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={onEdit}>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={onDelete} className="text-red-500">Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
         </div>
     );
 };
