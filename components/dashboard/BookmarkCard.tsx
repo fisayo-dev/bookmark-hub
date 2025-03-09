@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {LinkIcon, MoreHorizontal, MoreVertical} from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { deleteBookmark } from "@/lib/actions/bookmark";
+import {useRouter} from "next/navigation";
 
-const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: string; view: string; favicon: string; url: string; onEdit: () => void; onDelete: () => void }) => {
+const BookmarkCard = ({ id, view, title, favicon, url }: { title: string; id:string; view: string; favicon: string; url: string; }) => {
+    const router = useRouter();
     return (
         <div
             className={`hover:border-gray-400  items-center overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 ${
@@ -62,8 +65,11 @@ const BookmarkCard = ({ view, title, favicon, url, onEdit, onDelete }: { title: 
                         <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={onEdit}>Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={onDelete} className="text-red-500">Delete</DropdownMenuItem>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-500" onClick={async () => {
+                            await deleteBookmark(id)
+                            router.push('/bookmarks')
+                        }}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
