@@ -7,6 +7,7 @@ import Link from "next/link";
 import { addBookmark } from '@/lib/actions/bookmark'
 import { getUserId } from '@/lib/actions/general'
 import { useRouter} from "next/navigation";
+import { toast } from "sonner";
 
 const page =  () => {
   const [url, setUrl]  = useState('')
@@ -32,6 +33,7 @@ const page =  () => {
         createdAt: new Date(),
       })
       router.push('/bookmarks')
+      toast.success('Your bookmark was successfully created!')
     } catch(err) {
       alert(err)
     } finally {

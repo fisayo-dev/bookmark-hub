@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
 import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner"; // ✅ Import Sonner toast
+import { toast } from "sonner";
 
 interface Props {
     bookmarks: Bookmark[];
