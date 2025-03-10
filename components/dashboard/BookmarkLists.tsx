@@ -8,6 +8,7 @@ import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import config from "@/lib/config";
+import NoSearchResult from "@/components/dashboard/NoSearchResult";
 
 interface Props {
     bookmarks: Bookmark[];
@@ -113,6 +114,9 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 </div>
             </div>
 
+            {filteredBookmarks.length == 0 && (
+                <NoSearchResult />
+            )}
             <div
                 className={
                     view === "grid"
