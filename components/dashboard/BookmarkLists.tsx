@@ -8,7 +8,7 @@ import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import config from "@/lib/config";
-import NoSearchResult from "@/components/dashboard/NoSearchResult";
+import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
 
 interface Props {
     bookmarks: Bookmark[];
@@ -115,7 +115,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             </div>
 
             {filteredBookmarks.length == 0 && (
-                <NoSearchResult />
+                <BookmarkEmptyData text="Sorry, couldn't get a search result 🔍" image_url="/no_search_result.svg"  subtext="Why not try creating it?" btn_text="Create a new bookmark" image_alt_msg="Empty bookamrks list"/>
             )}
             <div
                 className={

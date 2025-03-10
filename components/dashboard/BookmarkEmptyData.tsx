@@ -3,26 +3,35 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {PlusIcon} from "lucide-react";
 
-const EmptyBookmarks = () => {
+interface Props {
+    text: string;
+    subtext?: string;
+    image_url: string;
+    btn_text: string;
+    image_alt_msg?: string;
+}
+
+const BookmarkData = ({text, subtext, image_url, btn_text, image_alt_msg}: Props) => {
     return (
         <div className="app-container mt-20 text-gray-900">
             <div className="grid gap-2 justify-center">
                 <Image
-                    src='/empty_bookmarks.svg'
+                    src={image_url}
                     height={300}
                     width={300}
                     className="mx-auto"
-                    alt="Empty Bookmarks"
+                    alt={image_alt_msg || "Bookmark data image"}
                 />
-                <h2 className="mx-auto text-2xl font-bold text-center">You have no bookmarks yet! 🤔</h2>
+                <h2 className="mx-auto text-2xl font-bold text-center">{text}</h2>
+                {subtext && (<p className="mx-auto text-sm text-center">{subtext}</p>)}
                 <Link href="/create-bookmark" className="mx-auto">
                     <Button className="text-center flex gap-2 justify-between items-center">
-                        <PlusIcon />
-                        <p>Create my first bookmark</p>
+                        <PlusIcon/>
+                        <p>{btn_text}</p>
                     </Button>
                 </Link>
             </div>
         </div>
     )
 }
-export default EmptyBookmarks
+export default BookmarkData
