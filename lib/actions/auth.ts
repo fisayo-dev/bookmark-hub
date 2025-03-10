@@ -1,6 +1,5 @@
 "use server"
 
-export const runtime = 'nodejs';
 
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
