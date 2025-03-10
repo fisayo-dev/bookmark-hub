@@ -32,7 +32,7 @@ const Page = async () => {
     const userBookmarkLength = userBookmarks.length;
 
     // Getting user details
-    const userResponse = await fetch("http://localhost:3000/api/users", {
+    const userResponse = await fetch(`${config.env.apiUrl}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
