@@ -5,6 +5,7 @@ import { BookmarkIcon, FlameIcon, StarIcon } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
+import config from '@/lib/config';
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
@@ -19,7 +20,7 @@ const Page = async () => {
     const userId = session?.user?.id as string;
 
     // Getting user bookmarks length
-    const bookmarkData = await fetch("http://localhost:3000/api/bookmarks", {
+    const bookmarkData = await fetch(`${config.env.apiUrl}/api/bookmarks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
