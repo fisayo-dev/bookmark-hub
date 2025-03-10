@@ -4,7 +4,8 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { cache } from "react";
 import {Metadata} from "next";
-import config from "@/lib/config"; // Caching API
+import config from "@/lib/config";
+import EmptyBookmarks from "@/components/dashboard/EmptyBookmarks"; // Caching API
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
@@ -42,7 +43,7 @@ export default async function Pages() {
     const bookmarkList = await fetchBookmarks(userId);
 
     if (!bookmarkList.length) {
-        return <p className="app-container mt-20 text-gray-900">No bookmarks found</p>;
+        return <EmptyBookmarks />
     }
 
     return (
