@@ -1,10 +1,13 @@
 "use server"
 
+export const runtime = 'nodejs';
+
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {eq} from "drizzle-orm";
 import {hash} from "bcryptjs";
 import {signIn} from "@/auth";
+
 
 export const signInWithCredentials = async (params: Pick<AuthCredentials, "email" | "password">) => {
     const {email,password} = params;
