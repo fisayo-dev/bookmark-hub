@@ -15,7 +15,7 @@ const EmptyBookmarks = () => {
                     alt="Empty Bookmarks"
                 />
                 <h2 className="mx-auto text-2xl font-bold text-center">You have no bookmarks yet! 🤔</h2>
-                <Link href="/bookmarks" className="mx-auto">
+                <Link href="/create-bookmark" className="mx-auto">
                     <Button className="text-center flex gap-2 justify-between items-center">
                         <PlusIcon />
                         <p>Create my first bookmark</p>
