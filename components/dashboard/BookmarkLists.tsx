@@ -7,6 +7,7 @@ import BookmarkCard from "@/components/dashboard/BookmarkCard";
 import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import config from "@/lib/config";
 
 interface Props {
     bookmarks: Bookmark[];
@@ -60,8 +61,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                return;
             }
 
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-            const metaDataResponse = await fetch(`${apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
+            const metaDataResponse = await fetch(`${config.env.apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
 
             if (!metaDataResponse.ok) {
                 toast.error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);

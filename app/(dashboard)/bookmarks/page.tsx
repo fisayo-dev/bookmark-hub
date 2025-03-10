@@ -3,7 +3,8 @@ import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { cache } from "react";
-import {Metadata} from "next"; // Caching API
+import {Metadata} from "next";
+import config from "@/lib/config"; // Caching API
 
 export async function generateMetadata(): Promise<Metadata> {
     const session = await auth();
@@ -15,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Function to fetch bookmarks with caching
 const fetchBookmarks = cache(async (userId: string): Promise<Bookmark[]> => {
-    const res = await fetch("http://localhost:3000/api/bookmarks", {
+    const res = await fetch(`${config.env.apiUrl}/api/bookmarks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
