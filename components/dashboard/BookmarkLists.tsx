@@ -92,7 +92,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                     <SearchIcon className="h-6 w-6 text-gray-400" />
                     <Input
                         className="w-full px-0 py-1"
-                        placeholder="Search for your bookmarks 😎"
+                        placeholder={`${bookmarks.length === 1 ? 'Search for one bookmark' : `Search through your ${bookmarks.length} bookmarks 😎`}`}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
