@@ -19,9 +19,11 @@ body {
 }
 
 .bookmark-list-mode-grid {
-  @apply grid gap-5;
-  grid-template-columns: 3fr 20fr 1.6fr;
+  /* For larger screens, use three columns with minmax constraints for flexibility */
+  @apply grid md:gap-0 gap-4;
+  grid-template-columns: minmax(40px, 2.5fr) minmax(100px, 20fr) minmax(40px, 1.6fr);
 }
+
 .sonner-toast {
   font-family:  'Bricolage Grotesque', sans-serif !important;
 }
