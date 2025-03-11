@@ -115,7 +115,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                             key={index}
                             onClick={btn.function}
                             className={`cursor-pointer hover:bg-gray-200 p-2 rounded-full ${
-                                btn.name === view ? "bg-gray-200" : ""
+                                btn.name === view ? "color-pink" : ""
                             }`}
                         >
                             {btn.icon}
