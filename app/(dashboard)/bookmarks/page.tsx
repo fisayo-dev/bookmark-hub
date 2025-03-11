@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
 import { useSession } from "next-auth/react"; // Assuming you're using NextAuth.js for authentication
 import config from "@/lib/config";
+import BookmarksLoader from "@/components/dashboard/BookmarksLoader";
 
 // Fetch function using fetch API
 const fetchBookmarks = async (userId: string): Promise<Bookmark[]> => {
@@ -41,18 +42,15 @@ export default function Pages() {
     }
 
     if (isLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[50vh]">
-                <p className="text-gray-500">Loading bookmarks...</p>
-                <div className="w-16 h-16 border-4 border-gray-300 border-t-pink-600 rounded-full animate-spin"></div>
-            </div>
-        );
+        return <BookmarksLoader />
+
     }
 
     if (isError) {
         return <p className="app-container mt-20 text-red-500">Failed to load bookmarks. Try again later.</p>;
     }
 
+    // @ts-ignore
     if (!bookmarkList || bookmarkList.length === 0) {
         return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookmarks list" />;
     }
@@ -69,6 +67,7 @@ export default function Pages() {
                         </Link>
                     </div>
                 </div>
+                {/* @ts-ignore */}
                 <BookmarkLists bookmarks={bookmarkList} />
             </div>
         </div>
