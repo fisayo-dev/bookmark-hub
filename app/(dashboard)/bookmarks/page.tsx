@@ -1,37 +1,60 @@
+"use client";
+
 import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@/auth";
-import config from "@/lib/config";
+import { useQuery } from "@tanstack/react-query";
 import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
+import { useSession } from "next-auth/react"; // Assuming you're using NextAuth.js for authentication
+import config from "@/lib/config";
 
-export const revalidate = 60; // Cache for 60 seconds globally
-
-async function fetchBookmarks(userId: string): Promise<Bookmark[]> {
+// Fetch function using fetch API
+const fetchBookmarks = async (userId: string): Promise<Bookmark[]> => {
     const res = await fetch(`${config.env.apiUrl}/api/bookmarks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
-        next: { revalidate: 60 }, // Cache data for 1 minute
     });
 
     if (!res.ok) return [];
     let bookmarks: Bookmark[] = await res.json();
     return bookmarks.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-}
+};
 
-export default async function Pages() {
-    const session = await auth();
-    const userId = session?.user?.id;
+export default function Pages() {
+    const { data: session } = useSession(); // Get session data
+    const userId = session?.user?.id as string;
+
+    // Use React Query to fetch bookmarks
+    const { data: bookmarkList, isLoading, isError } = useQuery({
+        queryKey: ["bookmarks", userId],
+        queryFn: () => fetchBookmarks(userId),
+        enabled: !!userId, // Prevent fetching if user is not logged in
+        staleTime: 60000, // Cache data for 60 seconds
+        // @ts-ignore
+        cacheTime: 300000, // Keep cached data for 5 minutes
+        retry: 2, // Retry fetch if it fails
+    });
 
     if (!userId) {
         return <p className="app-container mt-20 text-red-500">Please log in to view bookmarks</p>;
     }
 
-    const bookmarkList = await fetchBookmarks(userId);
+    if (isLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+                <p className="text-gray-500">Loading bookmarks...</p>
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-pink-600 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
-    if (bookmarkList.length == 0) {
-        return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookmarks list"/>
+    if (isError) {
+        return <p className="app-container mt-20 text-red-500">Failed to load bookmarks. Try again later.</p>;
+    }
+
+    if (!bookmarkList || bookmarkList.length === 0) {
+        return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookmarks list" />;
     }
 
     return (
