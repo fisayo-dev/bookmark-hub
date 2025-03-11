@@ -77,7 +77,7 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
                     {/* Column 1: Icon */}
                     <div className="flex items-center justify-center">
                         {favicon === "image" ? (
-                            <LinkIcon className="w-10 h-10" />
+                            <LinkIcon className="w-9 h-9" />
                         ) : (
                             <Link
                                 href={favicon || ''}
