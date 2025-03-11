@@ -14,13 +14,14 @@ interface Props {
 }
 
 export const addBookmark = async (data: Props) => {
-    await db.insert(bookmarks).values(data);
+    const newBookmark = await db.insert(bookmarks).values(data).returning();
     revalidatePath("/bookmarks");
+    return newBookmark[0]; // Return the newly inserted bookmark
 };
+
 
 export const deleteBookmark = async (id: string) => {
     await db.delete(bookmarks).where(eq(bookmarks.id, id));
-    revalidatePath("/bookmarks");
 };
 
 export const editBookmark = async (id: string, title: string, favicon:string, newUrl: string) => {
