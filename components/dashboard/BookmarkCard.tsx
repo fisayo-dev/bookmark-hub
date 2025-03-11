@@ -70,7 +70,7 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
 
     return (
         <div
-            className={`hover:border-gray-400 overflow-hidden  border border-gray-200 rounded-2xl p-4 relative ${
+            className={`hover:border-gray-400 overflow-hidden z-0  border border-gray-200 rounded-2xl p-4 relative ${
                 view === "list" ? "bookmark-list-mode-grid" : "grid gap-2 h-auto"
             }`}
         >
