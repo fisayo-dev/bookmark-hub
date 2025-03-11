@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import {ReactNode, useEffect, useState} from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
@@ -28,14 +28,31 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
+
+    useEffect(() => {
+        const layout = localStorage.getItem("layout");
+        if(!layout) {
+            localStorage.setItem("layout", "grid");
+        } else {
+            setView(layout)
+        }
+    }, [queryClient]);
+
+    const changeLayout = (layout: string) => {
+        const currentLayout = localStorage.getItem("layout");
+        if (layout === currentLayout) return;
+        setView(layout);
+        localStorage.setItem("layout", layout);
+    }
+
     const bookmarkStyleBtns: BookmarkStyleBtns[] = [
         {
-            function: () => setView("grid"),
+            function: () => changeLayout("grid"),
             icon: <Grid className="h-7 w-7" />,
             name: "grid",
         },
         {
-            function: () => setView("list"),
+            function: () => changeLayout("list"),
             icon: <List className="h-7 w-7" />,
             name: "list",
         },
