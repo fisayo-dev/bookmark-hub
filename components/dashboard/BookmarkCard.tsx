@@ -70,7 +70,7 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
 
     return (
         <div
-            className={`hover:border-gray-400 overflow-hidden cursor-pointer border border-gray-200 rounded-2xl p-4 relative ${
+            className={`hover:border-gray-400 overflow-hidden  border border-gray-200 rounded-2xl p-4 relative ${
                 view === "list" ? "bookmark-list-mode-grid" : "grid gap-2 h-auto"
             }`}
         >
@@ -79,14 +79,19 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
                         {favicon === "image" ? (
                             <LinkIcon className="w-10 h-10" />
                         ) : (
-                            <Image
-                                height={40}
-                                width={40}
-                                className="w-10 h-10"
-                                src={favicon || "/not-found.svg"}
-                                alt={title || url}
-                                unoptimized={true}
-                            />
+                            <Link
+                                href={favicon || ''}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <Image
+                                    height={40}
+                                    width={40}
+                                    className="cursor-pointer w-10 h-10"
+                                    src={favicon || "/not-found.svg"}
+                                    alt={title || url}
+                                    unoptimized={true}
+                                />
+                            </Link>
                         )}
                     </div>
 
