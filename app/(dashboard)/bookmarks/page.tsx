@@ -2,35 +2,23 @@ import BookmarkLists from "@/components/dashboard/BookmarkLists";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
-import { cache } from "react";
-import {Metadata} from "next";
 import config from "@/lib/config";
-import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData"; // Caching API
+import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
 
-export async function generateMetadata(): Promise<Metadata> {
-    const session = await auth();
-    return {
-        title: session?.user?.name ? `${session.user.name} - Bookmark Hub` : "User Bookmarks page",
-        description: session?.user?.name ? `This is ${session.user.name}'s bookmarks page. All bookmarks here belong to ${session.user.name}` : "User bookmark page description - A page that contains all the user bookmarks",
-    };
-}
+export const revalidate = 60; // Cache for 60 seconds globally
 
-// Function to fetch bookmarks with caching
-const fetchBookmarks = cache(async (userId: string): Promise<Bookmark[]> => {
+async function fetchBookmarks(userId: string): Promise<Bookmark[]> {
     const res = await fetch(`${config.env.apiUrl}/api/bookmarks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
-        next: { revalidate: 60 }, // Cache data for 1 minutes
+        next: { revalidate: 60 }, // Cache data for 1 minute
     });
 
     if (!res.ok) return [];
-
     let bookmarks: Bookmark[] = await res.json();
-
-    // Sort bookmarks from newest to oldest
     return bookmarks.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-});
+}
 
 export default async function Pages() {
     const session = await auth();
@@ -43,7 +31,7 @@ export default async function Pages() {
     const bookmarkList = await fetchBookmarks(userId);
 
     if (bookmarkList.length == 0) {
-        return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookamrks list"/>
+        return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookmarks list"/>
     }
 
     return (
