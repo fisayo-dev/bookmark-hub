@@ -4,7 +4,7 @@ import { ReactNode, useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
-import { addBookmark, deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
+import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import config from "@/lib/config";
@@ -63,36 +63,38 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         },
     });
 
-    const updateBookmark = async (id: string, newUrl: string) => {
-        try {
+    // ✅ Update Bookmark Mutation (Fixed)
+    const { mutate: updateBookmark, isPending: isUpdating } = useMutation({
+        mutationFn: async ({ id, newUrl }: { id: string; newUrl: string }) => {
             if (!newUrl.startsWith("http")) {
-                toast.error("Invalid URL. Please enter a valid URL.");
-                return;
+                throw new Error("Invalid URL. Please enter a valid URL.");
             }
 
             const metaDataResponse = await fetch(`${config.env.apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
-
             if (!metaDataResponse.ok) {
-                toast.error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
-                return;
+                throw new Error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
             }
 
             const data = await metaDataResponse.json();
-
             await editBookmark(id, data?.title ?? "No Title", data?.favicon ?? "", newUrl);
 
+            return { id, newUrl, name: data?.title, image: data?.favicon };
+        },
+        onSuccess: ({ id, newUrl, name, image }) => {
             setBookmarksState((prev) =>
                 prev.map((bookmark) =>
-                    bookmark.id === id ? { ...bookmark, url: newUrl, name: data?.title, image: data?.favicon } : bookmark
+                    bookmark.id === id ? { ...bookmark, url: newUrl, name, image } : bookmark
                 )
             );
 
             toast.success("Bookmark updated successfully! 🎉");
-            router.refresh();
-        } catch (err) {
-            toast.error("Failed to update bookmark. ❌ Please check the URL.");
-        }
-    };
+            queryClient.refetchQueries({ queryKey: ["bookmarks"] }); // ✅ Refresh cache
+            router.refresh(); // ✅ Ensure SSR cache update
+        },
+        onError: (error) => {
+            toast.error(error.message || "Failed to update bookmark. ❌ Please check the URL.");
+        },
+    });
 
     return (
         <div className="app-container">
@@ -136,7 +138,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 {filteredBookmarks.map((bookmark) => (
                     <BookmarkCard
                         key={bookmark.id}
-                        onEdit={(url) => updateBookmark(bookmark.id, url)}
+                        onEdit={(newUrl) => updateBookmark({ id: bookmark.id, newUrl })}
                         onDelete={() => removeBookmark(bookmark.id)}
                         url={bookmark.url}
                         favicon={bookmark.image}
