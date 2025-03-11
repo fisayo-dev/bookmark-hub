@@ -47,7 +47,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             bookmark.url.toLowerCase().includes(search.toLowerCase())
     );
 
-    // ✅ Delete Bookmark Mutation
+    // Delete Bookmark Mutation
     const { mutate: removeBookmark, isPending: isDeleting } = useMutation({
         mutationFn: async (id: string) => {
             await deleteBookmark(id);
@@ -63,7 +63,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         },
     });
 
-    // ✅ Update Bookmark Mutation (Fixed)
+    // Update Bookmark Mutation (Fixed)
     const { mutate: updateBookmark, isPending: isUpdating } = useMutation({
         mutationFn: async ({ id, newUrl }: { id: string; newUrl: string }) => {
             if (!newUrl.startsWith("http")) {
