@@ -4,11 +4,12 @@ import { ReactNode, useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
-import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
+import { addBookmark, deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import config from "@/lib/config";
 import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     bookmarks: Bookmark[];
@@ -25,6 +26,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     const [search, setSearch] = useState("");
     const [bookmarksState, setBookmarksState] = useState(bookmarks);
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const bookmarkStyleBtns: BookmarkStyleBtns[] = [
         {
@@ -45,21 +47,27 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             bookmark.url.toLowerCase().includes(search.toLowerCase())
     );
 
-    const removeBookmark = async (id: string) => {
-        try {
+    // ✅ Delete Bookmark Mutation
+    const { mutate: removeBookmark, isPending: isDeleting } = useMutation({
+        mutationFn: async (id: string) => {
             await deleteBookmark(id);
+        },
+        onSuccess: (_, id) => {
             setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
             toast.success("Bookmark deleted successfully!");
-        } catch (err) {
+            queryClient.refetchQueries({ queryKey: ["bookmarks"] }); // ✅ Refresh cache
+            router.refresh(); // ✅ Ensure SSR cache update
+        },
+        onError: () => {
             toast.error("Failed to delete bookmark.");
-        }
-    };
+        },
+    });
 
     const updateBookmark = async (id: string, newUrl: string) => {
         try {
             if (!newUrl.startsWith("http")) {
-               toast.error("Invalid URL. Please enter a valid URL.");
-               return;
+                toast.error("Invalid URL. Please enter a valid URL.");
+                return;
             }
 
             const metaDataResponse = await fetch(`${config.env.apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
@@ -115,8 +123,9 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             </div>
 
             {filteredBookmarks.length == 0 && (
-                <BookmarkEmptyData text="Sorry, couldn't get a search result 🔍" image_url="/no_search_result.svg"  subtext="Why not try creating it?" btn_text="Create a new bookmark" image_alt_msg="Empty bookamrks list"/>
+                <BookmarkEmptyData text="Sorry, couldn't get a search result 🔍" image_url="/no_search_result.svg" subtext="Why not try creating it?" btn_text="Create a new bookmark" image_alt_msg="Empty bookmarks list" />
             )}
+
             <div
                 className={
                     view === "grid"
