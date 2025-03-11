@@ -34,14 +34,14 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         if(!layout) {
             localStorage.setItem("layout", "grid");
         } else {
-            setView(layout)
+            setView(layout as "grid" | "list");
         }
     }, [queryClient]);
 
     const changeLayout = (layout: string) => {
         const currentLayout = localStorage.getItem("layout");
         if (layout === currentLayout) return;
-        setView(layout);
+        setView(layout as "grid" | "list");
         localStorage.setItem("layout", layout);
     }
 
