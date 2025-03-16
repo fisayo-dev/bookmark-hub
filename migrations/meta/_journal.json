@@ -57,6 +57,13 @@
       "when": 1741399840317,
       "tag": "0007_dazzling_talisman",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1742134928300,
+      "tag": "0008_closed_reptil",
+      "breakpoints": true
     }
   ]
 }

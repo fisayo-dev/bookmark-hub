@@ -158,6 +158,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                         onEdit={(newUrl) => updateBookmark({ id: bookmark.id, newUrl })}
                         onDelete={() => removeBookmark(bookmark.id)}
                         url={bookmark.url}
+                        starred={bookmark.starred}
                         favicon={bookmark.image}
                         title={bookmark.name}
                         view={view}
