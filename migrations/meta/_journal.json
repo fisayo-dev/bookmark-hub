@@ -71,6 +71,27 @@
       "when": 1742135792170,
       "tag": "0009_round_king_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1742136384324,
+      "tag": "0010_unique_iron_lad",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1742136511335,
+      "tag": "0011_overconfident_maelstrom",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1742136597446,
+      "tag": "0012_new_yellow_claw",
+      "breakpoints": true
     }
   ]
 }
