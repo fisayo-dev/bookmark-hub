@@ -1,14 +1,13 @@
 "use client";
 
-import {ReactNode, useEffect, useState} from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
-import { deleteBookmark, editBookmark } from "@/lib/actions/bookmark";
+import { deleteBookmark, editBookmark, starBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import config from "@/lib/config";
-import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
@@ -28,10 +27,9 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
-
     useEffect(() => {
         const layout = localStorage.getItem("layout");
-        if(!layout) {
+        if (!layout) {
             localStorage.setItem("layout", "grid");
         } else {
             setView(layout as "grid" | "list");
@@ -43,7 +41,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         if (layout === currentLayout) return;
         setView(layout as "grid" | "list");
         localStorage.setItem("layout", layout);
-    }
+    };
 
     const bookmarkStyleBtns: BookmarkStyleBtns[] = [
         {
@@ -87,7 +85,9 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 throw new Error("Invalid URL. Please enter a valid URL.");
             }
 
-            const metaDataResponse = await fetch(`${config.env.apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`);
+            const metaDataResponse = await fetch(
+                `${config.env.apiUrl}/api/getMeta?url=${encodeURIComponent(newUrl)}`
+            );
             if (!metaDataResponse.ok) {
                 throw new Error(`Failed to fetch metadata. Status: ${metaDataResponse.status}`);
             }
@@ -108,8 +108,29 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             queryClient.invalidateQueries({ queryKey: ["bookmarks"] }); // ✅ Refresh cache
             router.refresh(); // ✅ Ensure SSR cache update
         },
-        onError: (error) => {
+        onError: (error: any) => {
             toast.error(error.message || "Failed to update bookmark. ❌ Please check the URL.");
+        },
+    });
+
+    // Toggle Star Bookmark Mutation
+    const { mutate: toggleStar, isPending: isToggling } = useMutation({
+        mutationFn: async ({ id, newStatus }: { id: string; newStatus: boolean }) => {
+            await starBookmark(id, newStatus);
+            return { id, newStatus };
+        },
+        onSuccess: ({ id, newStatus }) => {
+            setBookmarksState((prev) =>
+                prev.map((bookmark) =>
+                    bookmark.id === id ? { ...bookmark, starred: newStatus } : bookmark
+                )
+            );
+            toast.success(`Bookmark ${newStatus ? "starred" : "unstarred"} successfully!`);
+            queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+            router.refresh();
+        },
+        onError: () => {
+            toast.error("Failed to update bookmark star status.");
         },
     });
 
@@ -120,7 +141,11 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                     <SearchIcon className="h-6 w-6 text-gray-400" />
                     <Input
                         className="w-full px-0 py-1"
-                        placeholder={`${bookmarks.length === 1 ? 'Search for one bookmark' : `Search through your ${bookmarks.length} bookmarks 😎`}`}
+                        placeholder={`${
+                            bookmarks.length === 1
+                                ? "Search for one bookmark"
+                                : `Search through your ${bookmarks.length} bookmarks 😎`
+                        }`}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -141,8 +166,14 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 </div>
             </div>
 
-            {filteredBookmarks.length == 0 && (
-                <BookmarkEmptyData text="Sorry, couldn't get a search result 🔍" image_url="/no_search_result.svg" subtext="Why not try creating it?" btn_text="Create a new bookmark" image_alt_msg="Empty bookmarks list" />
+            {filteredBookmarks.length === 0 && (
+                <BookmarkEmptyData
+                    text="Sorry, couldn't get a search result 🔍"
+                    image_url="/no_search_result.svg"
+                    subtext="Why not try creating it?"
+                    btn_text="Create a new bookmark"
+                    image_alt_msg="Empty bookmarks list"
+                />
             )}
 
             <div
@@ -155,9 +186,13 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 {filteredBookmarks.map((bookmark) => (
                     <BookmarkCard
                         key={bookmark.id}
+                        onStar={() =>
+                            toggleStar({ id: bookmark.id, newStatus: !bookmark.starred })
+                        }
                         onEdit={(newUrl) => updateBookmark({ id: bookmark.id, newUrl })}
                         onDelete={() => removeBookmark(bookmark.id)}
                         url={bookmark.url}
+                        starred={bookmark.starred}
                         favicon={bookmark.image}
                         title={bookmark.name}
                         view={view}

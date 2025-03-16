@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LinkIcon, MoreVertical, PencilIcon, TrashIcon } from "lucide-react";
+import {LinkIcon, MoreVertical, PencilIcon, StarIcon, TrashIcon} from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
@@ -47,11 +47,13 @@ function useResponsiveTruncate(view: "list" | "grid") {
     return maxLengths;
 }
 
-const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
+const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onStar, onDelete}: {
     title: string;
     view: "list" | "grid";
     favicon: string;
     url: string;
+    starred: boolean;
+    onStar: () => void;
     onEdit: (newUrl: string) => Promise<void>;
     onDelete: () => void;
 }) => {
@@ -77,7 +79,7 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
                     {/* Column 1: Icon */}
                     <div className="flex items-center justify-center">
                         {favicon === "image" ? (
-                            <LinkIcon className="w-10 h-10" />
+                            <LinkIcon className="w-9 h-9" />
                         ) : (
                             <Link
                                 href={favicon || ''}
@@ -106,38 +108,43 @@ const BookmarkCard = ({view, title, favicon, url, onEdit, onDelete}: {
                     </div>
 
                     {/* Column 3: Actions */}
-                    <div className={`flex items-center ${view == 'list' && 'justify-end'} gap-1`}>
-                        <Link
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="py-2 px-4 rounded-full bg-gray-200 text-sm hover:underline"
-                        >
-                            Visit
-                        </Link>
-                        <div className={`${view == 'grid' && 'absolute top-3 right-3'}`}>
+            <div className={`flex items-center ${view == 'list' && 'justify-end'} gap-1`}>
+                <Link
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2 px-4 rounded-full bg-gray-200 text-sm hover:underline"
+                >
+                    Visit
+                </Link>
+                <div className='flex items-center gap-2'>
+                    <div className={`${view == 'grid' && 'absolute top-3 right-3'}`}>
 
-                            <DropdownMenu>
-                                <DropdownMenuTrigger>
-                                    <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer" />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
-                                        <div className="flex items-center gap-2">
-                                            <PencilIcon className="w-5 h-5" />
-                                            <p>Edit</p>
-                                        </div>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
-                                        <div className="flex items-center gap-2">
-                                            <TrashIcon className="w-5 h-5" />
-                                            <p>Delete</p>
-                                        </div>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer"/>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
+                                    <div className="flex items-center gap-2">
+                                        <PencilIcon className="w-5 h-5"/>
+                                        <p>Edit</p>
+                                    </div>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
+                                    <div className="flex items-center gap-2">
+                                        <TrashIcon className="w-5 h-5"/>
+                                        <p>Delete</p>
+                                    </div>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                    <div onClick={onStar} className={`${view == 'grid' && 'absolute top-3 right-12'}`}>
+                        <StarIcon className={`${starred ? 'bg-yellow-300' : 'hover:bg-gray-200'} p-2 rounded-full w-8 h-8 cursor-pointer`}/>
                     </div>
                 </div>
+            </div>
             {/* Edit Dialog */}
             <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
                 <DialogContent>
