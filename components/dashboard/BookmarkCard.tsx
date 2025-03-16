@@ -47,12 +47,13 @@ function useResponsiveTruncate(view: "list" | "grid") {
     return maxLengths;
 }
 
-const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onDelete}: {
+const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onStar, onDelete}: {
     title: string;
     view: "list" | "grid";
     favicon: string;
     url: string;
     starred: boolean;
+    onStar: () => void;
     onEdit: (newUrl: string) => Promise<void>;
     onDelete: () => void;
 }) => {
@@ -139,7 +140,7 @@ const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onDelete}: {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    <div className={`${view == 'grid' && 'absolute top-3 right-12'}`}>
+                    <div onClick={onStar} className={`${view == 'grid' && 'absolute top-3 right-12'}`}>
                         <StarIcon className={`${starred ? 'bg-yellow-300' : 'hover:bg-gray-200'} p-2 rounded-full w-8 h-8 cursor-pointer`}/>
                     </div>
                 </div>
