@@ -64,6 +64,13 @@
       "when": 1742134928300,
       "tag": "0008_closed_reptil",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1742135792170,
+      "tag": "0009_round_king_cobra",
+      "breakpoints": true
     }
   ]
 }

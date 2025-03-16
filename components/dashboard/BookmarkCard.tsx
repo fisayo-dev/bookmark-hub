@@ -116,30 +116,32 @@ const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onDelete}: {
                 >
                     Visit
                 </Link>
-                <div className={`${view == 'grid' && 'absolute top-3 right-3'}`}>
+                <div className='flex items-center gap-2'>
+                    <div className={`${view == 'grid' && 'absolute top-3 right-3'}`}>
 
-                    <DropdownMenu>
-                        <DropdownMenuTrigger>
-                            <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer"/>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
-                                <div className="flex items-center gap-2">
-                                    <PencilIcon className="w-5 h-5"/>
-                                    <p>Edit</p>
-                                </div>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
-                                <div className="flex items-center gap-2">
-                                    <TrashIcon className="w-5 h-5"/>
-                                    <p>Delete</p>
-                                </div>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-                <div className={`${view == 'grid' && 'absolute top-3 right-8'}`}>
-                    <StarIcon className={`${starred && 'color-yellow-300'} hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer`}/>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <MoreVertical className="hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer"/>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
+                                    <div className="flex items-center gap-2">
+                                        <PencilIcon className="w-5 h-5"/>
+                                        <p>Edit</p>
+                                    </div>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={onDelete} className="hover:text-red-500 text-red-500">
+                                    <div className="flex items-center gap-2">
+                                        <TrashIcon className="w-5 h-5"/>
+                                        <p>Delete</p>
+                                    </div>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                    <div className={`${view == 'grid' && 'absolute top-3 right-9'}`}>
+                        <StarIcon className={`${starred && 'color-yellow-300'} hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer`}/>
+                    </div>
                 </div>
             </div>
             {/* Edit Dialog */}

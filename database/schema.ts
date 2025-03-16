@@ -23,5 +23,5 @@ export const bookmarks  = pgTable("bookmarks", {
         withTimezone: true,
     }).defaultNow(),
     owner: text("owner").notNull(),
-    starred: boolean('starred').default(false)
+    starred: boolean('starred').default(true)
 })
