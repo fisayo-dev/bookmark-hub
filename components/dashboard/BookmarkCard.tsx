@@ -139,8 +139,8 @@ const BookmarkCard = ({view, starred, title, favicon, url, onEdit, onDelete}: {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    <div className={`${view == 'grid' && 'absolute top-3 right-9'}`}>
-                        <StarIcon className={`${starred && 'color-yellow-300'} hover:bg-gray-200 p-2 rounded-full w-8 h-8 cursor-pointer`}/>
+                    <div className={`${view == 'grid' && 'absolute top-3 right-12'}`}>
+                        <StarIcon className={`${starred ? 'bg-yellow-300' : 'hover:bg-gray-200'} p-2 rounded-full w-8 h-8 cursor-pointer`}/>
                     </div>
                 </div>
             </div>
