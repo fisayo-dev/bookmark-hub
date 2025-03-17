@@ -24,6 +24,7 @@ interface Bookmark {
     name: string,
     image: string,
     url: string,
+    starred: boolean;
     onEdit: () => void,
     onDelete: () => void,
     createdAt: Date,
