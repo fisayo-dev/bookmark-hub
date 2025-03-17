@@ -32,15 +32,15 @@ export default function Pages() {
   const { data: bookmarkList, isLoading, isError } = useQuery({
     queryKey: ["bookmarks", userId],
     queryFn: () => fetchBookmarks(userId),
-    enabled: !!userId, // Prevent fetching if user is not logged in
-    staleTime: 60000, // Cache data for 60 seconds
+    enabled: !!userId,
+    staleTime: 60000,
     // @ts-ignore
-    cacheTime: 300000, // Keep cached data for 5 minutes
-    retry: 2, // Retry fetch if it fails
+    cacheTime: 300000,
+    retry: 2,
   });
 
   if (!userId) {
-    return <p className="app-container mt-20 text-red-500">Please log in to view bookmarks</p>;
+    return <p className="app-container mt-20 text-red-500">Please log in to view your favorites</p>;
   }
 
   if (isLoading) {
@@ -49,12 +49,12 @@ export default function Pages() {
   }
 
   if (isError) {
-    return <p className="app-container mt-20 text-red-500">Failed to load bookmarks. Try again later.</p>;
+    return <p className="app-container mt-20 text-red-500">Failed to load favorites. Try again later.</p>;
   }
 
   // @ts-ignore
   if (!bookmarkList || bookmarkList.length === 0) {
-    return <BookmarkEmptyData text="You have no bookmarks yet! 🤔" image_url="/empty_bookmarks.svg" btn_text="Create my first bookmark" image_alt_msg="Empty bookmarks list" />;
+    return <BookmarkEmptyData text="You have no favourites yet! 🤔" image_url="/empty_bookmarks.svg" showBtn={false} image_alt_msg="Empty bookmarks list" />;
   }
 
   return (
@@ -63,9 +63,11 @@ export default function Pages() {
           <div className="app-container flex items-center justify-between">
             <h2 className="text-4xl text-pink-600 font-bold">Favorites</h2>
             <div className="p-3 rounded-2xl bg-gray-100 hover:bg-gray-200 cursor-pointer">
-              <Link href="/create-bookmark" className="flex items-center justify-center gap-1">
-                <BookmarkIcon className="h-5 w-5" />
-                <p className="text-sm">New</p>
+              <Link href="/create-bookmark">
+                <div className="flex items-center justify-center gap-1">
+                  <BookmarkIcon className="h-5 w-5" />
+                  <p className="text-sm">New</p>
+                </div>
               </Link>
             </div>
           </div>
