@@ -40,3 +40,16 @@ export const editBookmark = async (id: string, title: string, favicon:string, ne
         console.error("Error fetching metadata:", err);
     }
 };
+
+export const starBookmark = async (id: string, status: boolean) => {
+    try {
+        await db
+            .update(bookmarks)
+            .set({
+                starred: status
+            })
+            .where(eq(bookmarks.id, id));
+    } catch (err) {
+        console.error("Error starring bookmark:", err);
+    }
+}
