@@ -30,7 +30,7 @@ export default function Pages() {
 
   // Use React Query to fetch bookmarks
   const { data: bookmarkList, isLoading, isError } = useQuery({
-    queryKey: ["bookmarks", userId],
+    queryKey: ["favorites", userId],
     queryFn: () => fetchBookmarks(userId),
     enabled: !!userId,
     staleTime: 60000,
