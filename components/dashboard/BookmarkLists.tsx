@@ -12,6 +12,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     bookmarks: Bookmark[];
+    userId?: string; // Optional userId for query invalidation in favorites
 }
 
 interface BookmarkStyleBtns {
@@ -20,7 +21,7 @@ interface BookmarkStyleBtns {
     name?: string;
 }
 
-const BookmarkLists = ({ bookmarks }: Props) => {
+const BookmarkLists = ({ bookmarks, userId }: Props) => {
     const [view, setView] = useState<"grid" | "list">("grid");
     const [search, setSearch] = useState("");
     const [bookmarksState, setBookmarksState] = useState(bookmarks);
@@ -63,23 +64,27 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     );
 
     // Delete Bookmark Mutation
-    const { mutate: removeBookmark, isPending: isDeleting } = useMutation({
+    const { mutate: removeBookmark } = useMutation({
         mutationFn: async (id: string) => {
             await deleteBookmark(id);
         },
         onSuccess: (_, id) => {
             setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
             toast.success("Bookmark deleted successfully!");
-            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] }); // ✅ Refresh cache
-            router.refresh(); // ✅ Ensure SSR cache update
+            // Invalidate queries (both favorites and bookmarks if applicable)
+            if (userId) {
+                queryClient.invalidateQueries({ queryKey: ["bookmarks", userId] });
+                queryClient.invalidateQueries({ queryKey: ["favorites", userId] });
+            }
+            router.refresh();
         },
         onError: () => {
             toast.error("Failed to delete bookmark.");
         },
     });
 
-    // Update Bookmark Mutation (Fixed)
-    const { mutate: updateBookmark, isPending: isUpdating } = useMutation({
+    // Update Bookmark Mutation
+    const { mutate: updateBookmark } = useMutation({
         mutationFn: async ({ id, newUrl }: { id: string; newUrl: string }) => {
             if (!newUrl.startsWith("http")) {
                 throw new Error("Invalid URL. Please enter a valid URL.");
@@ -103,10 +108,12 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                     bookmark.id === id ? { ...bookmark, url: newUrl, name, image } : bookmark
                 )
             );
-
             toast.success("Bookmark updated successfully! 🎉");
-            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] }); // ✅ Refresh cache
-            router.refresh(); // ✅ Ensure SSR cache update
+            if (userId) {
+                queryClient.invalidateQueries({ queryKey: ["bookmarks", userId] });
+                queryClient.invalidateQueries({ queryKey: ["favorites", userId] });
+            }
+            router.refresh();
         },
         onError: (error: any) => {
             toast.error(error.message || "Failed to update bookmark. ❌ Please check the URL.");
@@ -114,19 +121,27 @@ const BookmarkLists = ({ bookmarks }: Props) => {
     });
 
     // Toggle Star Bookmark Mutation
-    const { mutate: toggleStar, isPending: isToggling } = useMutation({
+    const { mutate: toggleStar } = useMutation({
         mutationFn: async ({ id, newStatus }: { id: string; newStatus: boolean }) => {
             await starBookmark(id, newStatus);
             return { id, newStatus };
         },
         onSuccess: ({ id, newStatus }) => {
-            setBookmarksState((prev) =>
-                prev.map((bookmark) =>
-                    bookmark.id === id ? { ...bookmark, starred: newStatus } : bookmark
-                )
-            );
+            // If un-starring in favorites page, remove from local state
+            if (!newStatus && userId) {
+                setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
+            } else {
+                setBookmarksState((prev) =>
+                    prev.map((bookmark) =>
+                        bookmark.id === id ? { ...bookmark, starred: newStatus } : bookmark
+                    )
+                );
+            }
             toast.success(`Bookmark ${newStatus ? "starred" : "unstarred"} successfully!`);
-            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] });
+            if (userId) {
+                queryClient.invalidateQueries({ queryKey: ["favorites", userId] });
+                queryClient.invalidateQueries({ queryKey: ["bookmarks", userId] });
+            }
             router.refresh();
         },
         onError: () => {
@@ -186,9 +201,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 {filteredBookmarks.map((bookmark) => (
                     <BookmarkCard
                         key={bookmark.id}
-                        onStar={() =>
-                            toggleStar({ id: bookmark.id, newStatus: !bookmark.starred })
-                        }
+                        onStar={() => toggleStar({ id: bookmark.id, newStatus: !bookmark.starred })}
                         onEdit={(newUrl) => updateBookmark({ id: bookmark.id, newUrl })}
                         onDelete={() => removeBookmark(bookmark.id)}
                         url={bookmark.url}

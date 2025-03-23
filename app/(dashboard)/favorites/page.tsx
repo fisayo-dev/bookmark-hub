@@ -5,7 +5,7 @@ import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
-import { useSession } from "next-auth/react"; // Assuming you're using NextAuth.js for authentication
+import { useSession } from "next-auth/react"; // Assuming NextAuth.js is used
 import config from "@/lib/config";
 import BookmarksLoader from "@/components/dashboard/BookmarksLoader";
 
@@ -21,14 +21,13 @@ const fetchFavorites = async (userId: string): Promise<Bookmark[]> => {
   const favorites: Bookmark[] = await res.json();
   return favorites
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .filter((bookmark) => bookmark.starred)
+      .filter((bookmark) => bookmark.starred);
 };
 
 export default function Pages() {
-  const { data: session } = useSession(); // Get session data
+  const { data: session } = useSession();
   const userId = session?.user?.id as string;
 
-  // Use React Query to fetch bookmarks
   const { data: favoritesList, isLoading, isError } = useQuery({
     queryKey: ["favorites", userId],
     queryFn: () => fetchFavorites(userId),
@@ -44,17 +43,22 @@ export default function Pages() {
   }
 
   if (isLoading) {
-    return <BookmarksLoader />
-
+    return <BookmarksLoader />;
   }
 
   if (isError) {
     return <p className="app-container mt-20 text-red-500">Failed to load favorites. Try again later.</p>;
   }
 
-  // @ts-ignore
   if (!favoritesList || favoritesList.length === 0) {
-    return <BookmarkEmptyData text="You have no favourites yet! 🤔" image_url="/empty_bookmarks.svg" showBtn={false} image_alt_msg="Empty bookmarks list" />;
+    return (
+        <BookmarkEmptyData
+            text="You have no favourites yet! 🤔"
+            image_url="/empty_bookmarks.svg"
+            showBtn={false}
+            image_alt_msg="Empty bookmarks list"
+        />
+    );
   }
 
   return (
@@ -71,8 +75,8 @@ export default function Pages() {
               </Link>
             </div>
           </div>
-          {/* @ts-ignore */}
-          <BookmarkLists bookmarks={favoritesList} />
+          {/* Pass the userId to BookmarkLists */}
+          <BookmarkLists bookmarks={favoritesList} userId={userId} />
         </div>
       </div>
   );
