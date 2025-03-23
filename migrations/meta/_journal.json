@@ -92,6 +92,13 @@
       "when": 1742136597446,
       "tag": "0012_new_yellow_claw",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1742734396108,
+      "tag": "0013_stiff_albert_cleary",
+      "breakpoints": true
     }
   ]
 }
