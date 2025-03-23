@@ -1,1 +1,0 @@
-ALTER TABLE "bookmark_table" ALTER COLUMN "image" SET DEFAULT 'image';

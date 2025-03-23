@@ -1,2 +1,0 @@
-ALTER TABLE "bookmarks" ALTER COLUMN "owner" SET DATA TYPE uuid;--> statement-breakpoint
-ALTER TABLE "bookmarks" ADD CONSTRAINT "bookmarks_owner_users_id_fk" FOREIGN KEY ("owner") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;

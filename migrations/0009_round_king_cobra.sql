@@ -1,1 +1,0 @@
-ALTER TABLE "bookmarks" ALTER COLUMN "starred" SET DEFAULT true;

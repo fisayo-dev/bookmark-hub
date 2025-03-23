@@ -1,1 +1,0 @@
-ALTER TABLE "bookmarks" ALTER COLUMN "owner" SET DATA TYPE text;
