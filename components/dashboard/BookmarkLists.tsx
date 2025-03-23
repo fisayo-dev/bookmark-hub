@@ -70,7 +70,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
         onSuccess: (_, id) => {
             setBookmarksState((prev) => prev.filter((bookmark) => bookmark.id !== id));
             toast.success("Bookmark deleted successfully!");
-            queryClient.invalidateQueries({ queryKey: ["bookmarks"] }); // ✅ Refresh cache
+            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] }); // ✅ Refresh cache
             router.refresh(); // ✅ Ensure SSR cache update
         },
         onError: () => {
@@ -105,7 +105,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
             );
 
             toast.success("Bookmark updated successfully! 🎉");
-            queryClient.invalidateQueries({ queryKey: ["bookmarks"] }); // ✅ Refresh cache
+            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] }); // ✅ Refresh cache
             router.refresh(); // ✅ Ensure SSR cache update
         },
         onError: (error: any) => {
@@ -126,7 +126,7 @@ const BookmarkLists = ({ bookmarks }: Props) => {
                 )
             );
             toast.success(`Bookmark ${newStatus ? "starred" : "unstarred"} successfully!`);
-            queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+            queryClient.invalidateQueries({ queryKey: ["bookmarks", "favorites"] });
             router.refresh();
         },
         onError: () => {

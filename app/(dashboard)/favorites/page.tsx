@@ -10,7 +10,7 @@ import config from "@/lib/config";
 import BookmarksLoader from "@/components/dashboard/BookmarksLoader";
 
 // Fetch function using fetch API
-const fetchBookmarks = async (userId: string): Promise<Bookmark[]> => {
+const fetchFavorites = async (userId: string): Promise<Bookmark[]> => {
   const res = await fetch(`${config.env.apiUrl}/api/bookmarks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -18,8 +18,8 @@ const fetchBookmarks = async (userId: string): Promise<Bookmark[]> => {
   });
 
   if (!res.ok) return [];
-  let bookmarks: Bookmark[] = await res.json();
-  return bookmarks
+  const favorites: Bookmark[] = await res.json();
+  return favorites
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .filter((bookmark) => bookmark.starred)
 };
@@ -29,9 +29,9 @@ export default function Pages() {
   const userId = session?.user?.id as string;
 
   // Use React Query to fetch bookmarks
-  const { data: bookmarkList, isLoading, isError } = useQuery({
+  const { data: favoritesList, isLoading, isError } = useQuery({
     queryKey: ["favorites", userId],
-    queryFn: () => fetchBookmarks(userId),
+    queryFn: () => fetchFavorites(userId),
     enabled: !!userId,
     staleTime: 60000,
     // @ts-ignore
@@ -53,7 +53,7 @@ export default function Pages() {
   }
 
   // @ts-ignore
-  if (!bookmarkList || bookmarkList.length === 0) {
+  if (!favoritesList || favoritesList.length === 0) {
     return <BookmarkEmptyData text="You have no favourites yet! 🤔" image_url="/empty_bookmarks.svg" showBtn={false} image_alt_msg="Empty bookmarks list" />;
   }
 
@@ -63,16 +63,16 @@ export default function Pages() {
           <div className="app-container flex items-center justify-between">
             <h2 className="text-4xl text-pink-600 font-bold">Favorites</h2>
             <div className="p-3 rounded-2xl bg-gray-100 hover:bg-gray-200 cursor-pointer">
-              <Link href="/create-bookmark">
+              <Link href="/bookmarks">
                 <div className="flex items-center justify-center gap-1">
                   <BookmarkIcon className="h-5 w-5" />
-                  <p className="text-sm">New</p>
+                  <p className="text-sm">All Bookmarks</p>
                 </div>
               </Link>
             </div>
           </div>
           {/* @ts-ignore */}
-          <BookmarkLists bookmarks={bookmarkList} />
+          <BookmarkLists bookmarks={favoritesList} />
         </div>
       </div>
   );
