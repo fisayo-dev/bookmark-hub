@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Grid, List, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import BookmarkCard from "@/components/dashboard/BookmarkCard";
+import BookmarkEmptyData from "@/components/dashboard/BookmarkEmptyData";
 import { deleteBookmark, editBookmark, starBookmark } from "@/lib/actions/bookmark";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
